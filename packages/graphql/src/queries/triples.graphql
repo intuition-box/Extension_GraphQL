@@ -100,7 +100,7 @@ query GetTriplesCount($where: triples_bool_exp) {
   }
 }
 
-query GetTriple($tripleId: numeric!) {
+query GetTriple($tripleId: String!) {
   triple(term_id: $tripleId) {
     ...TripleMetadata
     ...TripleTxn
@@ -202,7 +202,7 @@ query GetTriplesWithPositions(
 
 
 
-query GetTriplesByAtom($term_id: numeric, $address: String) {
+query GetTriplesByAtom($term_id: String, $address: String) {
   triples_aggregate(
     where: {
       _or: [

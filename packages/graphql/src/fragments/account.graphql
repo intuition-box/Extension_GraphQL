@@ -122,7 +122,7 @@ fragment AccountAtomsAggregate on accounts {
     aggregate {
       count
       sum {
-        term_id
+        block_number
       }
     }
     nodes {

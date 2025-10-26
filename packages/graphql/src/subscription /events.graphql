@@ -2,7 +2,7 @@ subscription Events($addresses: [String!]!, $limit: Int!) {
   events(
     where: {
       _or: [
-        { deposit: { is_atom_wallet: { _eq: false } } }
+        { deposit: { created_at: { _eq: false } } }
 
       ]
     }

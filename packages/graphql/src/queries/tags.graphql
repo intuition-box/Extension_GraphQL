@@ -1,4 +1,4 @@
-query GetTags($subjectId: numeric!, $predicateId: numeric!) {
+query GetTags($subjectId: String!, $predicateId: String!) {
   triples(
     where: {
       _and: [
@@ -54,8 +54,8 @@ query GetListsTags(
 
 
 query GetTaggedObjects(
-  $objectId: numeric!,
-  $predicateId: numeric!,
+  $objectId: String!,
+  $predicateId: String!,
   $address: String
 ) {
   triples(
