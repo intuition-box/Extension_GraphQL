@@ -112,7 +112,7 @@ query GetAtomsCount($where: atoms_bool_exp) {
   }
 }
 
-query GetAtom($term_id: numeric!) {
+query GetAtom($term_id: String!) {
   atom(term_id: $term_id) {
     ...AtomMetadata
     ...AtomTxn
@@ -137,7 +137,7 @@ query GetAtomByData($data: String!) {
 }
 
 # App specific queries
-query GetVerifiedAtomDetails($id: numeric!, $userPositionAddress: String!) {
+query GetVerifiedAtomDetails($id: String!, $userPositionAddress: String!) {
   atom(term_id: $id) {
     term_id
     label
@@ -170,7 +170,7 @@ query GetVerifiedAtomDetails($id: numeric!, $userPositionAddress: String!) {
         }
       }
     }
-    tags: as_subject_triples_aggregate(where: { predicate_id: { _in: [3] } }) {
+    tags: as_subject_triples_aggregate(where: { predicate_id: { _in: "3" } }) {
       nodes {
         object {
           label
@@ -223,7 +223,7 @@ query GetVerifiedAtomDetails($id: numeric!, $userPositionAddress: String!) {
   }
 }
 
-query GetAtomDetails($id: numeric!, $userPositionAddress: String!) {
+query GetAtomDetails($id: String!, $userPositionAddress: String!) {
   atom(term_id: $id) {
     term_id
     label
@@ -256,7 +256,7 @@ query GetAtomDetails($id: numeric!, $userPositionAddress: String!) {
         }
       }
     }
-    tags: as_subject_triples_aggregate(where: { predicate_id: { _in: [3] } }) {
+    tags: as_subject_triples_aggregate(where: { predicate_id: { _in: ["3"] } }) {
       nodes {
         object {
           label

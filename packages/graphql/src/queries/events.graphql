@@ -158,8 +158,6 @@ query GetEventsFeed(
         label
         image
       }
-      shares_for_receiver
-      sender_assets_after_total_fees
       vault {
         total_shares
         position_count
