@@ -289,12 +289,18 @@ query GetTriplesByUri($address: String, $uriRegex: String) {
               count
             }
           }
+          vaults {
+            curve_id
+          }
         }
         counter_term {
           positions_aggregate {
             aggregate {
               count
             }
+          }
+          vaults {
+            curve_id
           }
         }
         subject {
@@ -351,12 +357,18 @@ query GetTriplesByUri($address: String, $uriRegex: String) {
               count
             }
           }
+          vaults {
+            curve_id
+          }
         }
         counter_term {
           positions_aggregate {
             aggregate {
               count
             }
+          }
+          vaults {
+            curve_id
           }
         }
         predicate {
