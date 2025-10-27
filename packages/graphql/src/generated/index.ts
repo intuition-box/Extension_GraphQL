@@ -21056,6 +21056,7 @@ export type GetTriplesByUriQuery = {
               count: number
             } | null
           }
+          vaults: Array<{ __typename?: 'vaults'; curve_id: any }>
         } | null
         counter_term?: {
           __typename?: 'terms'
@@ -21066,6 +21067,7 @@ export type GetTriplesByUriQuery = {
               count: number
             } | null
           }
+          vaults: Array<{ __typename?: 'vaults'; curve_id: any }>
         } | null
         subject: {
           __typename?: 'atoms'
@@ -21131,6 +21133,7 @@ export type GetTriplesByUriQuery = {
               count: number
             } | null
           }
+          vaults: Array<{ __typename?: 'vaults'; curve_id: any }>
         } | null
         counter_term?: {
           __typename?: 'terms'
@@ -21141,6 +21144,7 @@ export type GetTriplesByUriQuery = {
               count: number
             } | null
           }
+          vaults: Array<{ __typename?: 'vaults'; curve_id: any }>
         } | null
         predicate: {
           __typename?: 'atoms'
@@ -61775,6 +61779,22 @@ export const GetTriplesByUriDocument = {
                                       ],
                                     },
                                   },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'vaults' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'curve_id',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
                                 ],
                               },
                             },
@@ -61810,6 +61830,22 @@ export const GetTriplesByUriDocument = {
                                                 },
                                               },
                                             ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'vaults' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'curve_id',
                                           },
                                         },
                                       ],
@@ -62149,6 +62185,22 @@ export const GetTriplesByUriDocument = {
                                       ],
                                     },
                                   },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'vaults' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'curve_id',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
                                 ],
                               },
                             },
@@ -62184,6 +62236,22 @@ export const GetTriplesByUriDocument = {
                                                 },
                                               },
                                             ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'vaults' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'curve_id',
                                           },
                                         },
                                       ],
@@ -100461,6 +100529,22 @@ export const GetTriplesByUri = {
                                       ],
                                     },
                                   },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'vaults' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'curve_id',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
                                 ],
                               },
                             },
@@ -100496,6 +100580,22 @@ export const GetTriplesByUri = {
                                                 },
                                               },
                                             ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'vaults' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'curve_id',
                                           },
                                         },
                                       ],
@@ -100835,6 +100935,22 @@ export const GetTriplesByUri = {
                                       ],
                                     },
                                   },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'vaults' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'curve_id',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
                                 ],
                               },
                             },
@@ -100870,6 +100986,22 @@ export const GetTriplesByUri = {
                                                 },
                                               },
                                             ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'vaults' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'curve_id',
                                           },
                                         },
                                       ],
