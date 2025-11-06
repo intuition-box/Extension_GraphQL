@@ -546,7 +546,7 @@ export type Atom_Values = {
   account?: Maybe<Accounts>
   account_id?: Maybe<Scalars['String']['output']>
   /** An object relationship */
-  atom: Atoms
+  atom?: Maybe<Atoms>
   /** An object relationship */
   book?: Maybe<Books>
   book_id?: Maybe<Scalars['String']['output']>
@@ -754,7 +754,7 @@ export type Atoms = {
   controller?: Maybe<Accounts>
   created_at: Scalars['timestamptz']['output']
   /** An object relationship */
-  creator: Accounts
+  creator?: Maybe<Accounts>
   creator_id: Scalars['String']['output']
   data?: Maybe<Scalars['String']['output']>
   emoji?: Maybe<Scalars['String']['output']>
@@ -772,7 +772,7 @@ export type Atoms = {
   /** An aggregate relationship */
   signals_aggregate: Signals_Aggregate
   /** An object relationship */
-  term: Terms
+  term?: Maybe<Terms>
   term_id: Scalars['String']['output']
   transaction_hash: Scalars['String']['output']
   type: Scalars['atom_type']['output']
@@ -1804,14 +1804,14 @@ export type Deposits = {
   id: Scalars['String']['output']
   log_index: Scalars['bigint']['output']
   /** An object relationship */
-  receiver: Accounts
+  receiver?: Maybe<Accounts>
   receiver_id: Scalars['String']['output']
   /** An object relationship */
   sender?: Maybe<Accounts>
   sender_id: Scalars['String']['output']
   shares: Scalars['numeric']['output']
   /** An object relationship */
-  term: Terms
+  term?: Maybe<Terms>
   term_id: Scalars['String']['output']
   total_shares: Scalars['numeric']['output']
   transaction_hash: Scalars['String']['output']
@@ -2451,7 +2451,7 @@ export type Fee_Transfers = {
   created_at: Scalars['timestamptz']['output']
   id: Scalars['String']['output']
   /** An object relationship */
-  receiver: Accounts
+  receiver?: Maybe<Accounts>
   receiver_id: Scalars['String']['output']
   /** An object relationship */
   sender?: Maybe<Accounts>
@@ -3163,7 +3163,7 @@ export type Positions = {
   log_index: Scalars['bigint']['output']
   shares: Scalars['numeric']['output']
   /** An object relationship */
-  term: Terms
+  term?: Maybe<Terms>
   term_id: Scalars['String']['output']
   total_deposit_assets_after_total_fees: Scalars['numeric']['output']
   total_redeem_assets_for_receiver: Scalars['numeric']['output']
@@ -3589,14 +3589,37 @@ export type Positions_Variance_Order_By = {
 /** columns and relationships of "predicate_object" */
 export type Predicate_Objects = {
   __typename?: 'predicate_objects'
-  id: Scalars['String']['output']
   /** An object relationship */
-  object: Atoms
+  object?: Maybe<Atoms>
   object_id: Scalars['String']['output']
   /** An object relationship */
-  predicate: Atoms
+  predicate?: Maybe<Atoms>
   predicate_id: Scalars['String']['output']
+  total_market_cap: Scalars['numeric']['output']
+  total_position_count: Scalars['Int']['output']
   triple_count: Scalars['Int']['output']
+  /** An array relationship */
+  triples: Array<Triples>
+  /** An aggregate relationship */
+  triples_aggregate: Triples_Aggregate
+}
+
+/** columns and relationships of "predicate_object" */
+export type Predicate_ObjectsTriplesArgs = {
+  distinct_on?: InputMaybe<Array<Triples_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Triples_Order_By>>
+  where?: InputMaybe<Triples_Bool_Exp>
+}
+
+/** columns and relationships of "predicate_object" */
+export type Predicate_ObjectsTriples_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Triples_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Triples_Order_By>>
+  where?: InputMaybe<Triples_Bool_Exp>
 }
 
 /** aggregated selection of "predicate_object" */
@@ -3657,11 +3680,15 @@ export type Predicate_Objects_Aggregate_Order_By = {
 /** aggregate avg on columns */
 export type Predicate_Objects_Avg_Fields = {
   __typename?: 'predicate_objects_avg_fields'
+  total_market_cap?: Maybe<Scalars['Float']['output']>
+  total_position_count?: Maybe<Scalars['Float']['output']>
   triple_count?: Maybe<Scalars['Float']['output']>
 }
 
 /** order by avg() on columns of table "predicate_object" */
 export type Predicate_Objects_Avg_Order_By = {
+  total_market_cap?: InputMaybe<Order_By>
+  total_position_count?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
 }
 
@@ -3670,99 +3697,122 @@ export type Predicate_Objects_Bool_Exp = {
   _and?: InputMaybe<Array<Predicate_Objects_Bool_Exp>>
   _not?: InputMaybe<Predicate_Objects_Bool_Exp>
   _or?: InputMaybe<Array<Predicate_Objects_Bool_Exp>>
-  id?: InputMaybe<String_Comparison_Exp>
   object?: InputMaybe<Atoms_Bool_Exp>
   object_id?: InputMaybe<String_Comparison_Exp>
   predicate?: InputMaybe<Atoms_Bool_Exp>
   predicate_id?: InputMaybe<String_Comparison_Exp>
+  total_market_cap?: InputMaybe<Numeric_Comparison_Exp>
+  total_position_count?: InputMaybe<Int_Comparison_Exp>
   triple_count?: InputMaybe<Int_Comparison_Exp>
+  triples?: InputMaybe<Triples_Bool_Exp>
+  triples_aggregate?: InputMaybe<Triples_Aggregate_Bool_Exp>
 }
 
 /** aggregate max on columns */
 export type Predicate_Objects_Max_Fields = {
   __typename?: 'predicate_objects_max_fields'
-  id?: Maybe<Scalars['String']['output']>
   object_id?: Maybe<Scalars['String']['output']>
   predicate_id?: Maybe<Scalars['String']['output']>
+  total_market_cap?: Maybe<Scalars['numeric']['output']>
+  total_position_count?: Maybe<Scalars['Int']['output']>
   triple_count?: Maybe<Scalars['Int']['output']>
 }
 
 /** order by max() on columns of table "predicate_object" */
 export type Predicate_Objects_Max_Order_By = {
-  id?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
+  total_market_cap?: InputMaybe<Order_By>
+  total_position_count?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
 }
 
 /** aggregate min on columns */
 export type Predicate_Objects_Min_Fields = {
   __typename?: 'predicate_objects_min_fields'
-  id?: Maybe<Scalars['String']['output']>
   object_id?: Maybe<Scalars['String']['output']>
   predicate_id?: Maybe<Scalars['String']['output']>
+  total_market_cap?: Maybe<Scalars['numeric']['output']>
+  total_position_count?: Maybe<Scalars['Int']['output']>
   triple_count?: Maybe<Scalars['Int']['output']>
 }
 
 /** order by min() on columns of table "predicate_object" */
 export type Predicate_Objects_Min_Order_By = {
-  id?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
+  total_market_cap?: InputMaybe<Order_By>
+  total_position_count?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
 }
 
 /** Ordering options when selecting data from "predicate_object". */
 export type Predicate_Objects_Order_By = {
-  id?: InputMaybe<Order_By>
   object?: InputMaybe<Atoms_Order_By>
   object_id?: InputMaybe<Order_By>
   predicate?: InputMaybe<Atoms_Order_By>
   predicate_id?: InputMaybe<Order_By>
+  total_market_cap?: InputMaybe<Order_By>
+  total_position_count?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
+  triples_aggregate?: InputMaybe<Triples_Aggregate_Order_By>
 }
 
 /** select columns of table "predicate_object" */
 export type Predicate_Objects_Select_Column =
   /** column name */
-  | 'id'
-  /** column name */
   | 'object_id'
   /** column name */
   | 'predicate_id'
+  /** column name */
+  | 'total_market_cap'
+  /** column name */
+  | 'total_position_count'
   /** column name */
   | 'triple_count'
 
 /** aggregate stddev on columns */
 export type Predicate_Objects_Stddev_Fields = {
   __typename?: 'predicate_objects_stddev_fields'
+  total_market_cap?: Maybe<Scalars['Float']['output']>
+  total_position_count?: Maybe<Scalars['Float']['output']>
   triple_count?: Maybe<Scalars['Float']['output']>
 }
 
 /** order by stddev() on columns of table "predicate_object" */
 export type Predicate_Objects_Stddev_Order_By = {
+  total_market_cap?: InputMaybe<Order_By>
+  total_position_count?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
 }
 
 /** aggregate stddev_pop on columns */
 export type Predicate_Objects_Stddev_Pop_Fields = {
   __typename?: 'predicate_objects_stddev_pop_fields'
+  total_market_cap?: Maybe<Scalars['Float']['output']>
+  total_position_count?: Maybe<Scalars['Float']['output']>
   triple_count?: Maybe<Scalars['Float']['output']>
 }
 
 /** order by stddev_pop() on columns of table "predicate_object" */
 export type Predicate_Objects_Stddev_Pop_Order_By = {
+  total_market_cap?: InputMaybe<Order_By>
+  total_position_count?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
 }
 
 /** aggregate stddev_samp on columns */
 export type Predicate_Objects_Stddev_Samp_Fields = {
   __typename?: 'predicate_objects_stddev_samp_fields'
+  total_market_cap?: Maybe<Scalars['Float']['output']>
+  total_position_count?: Maybe<Scalars['Float']['output']>
   triple_count?: Maybe<Scalars['Float']['output']>
 }
 
 /** order by stddev_samp() on columns of table "predicate_object" */
 export type Predicate_Objects_Stddev_Samp_Order_By = {
+  total_market_cap?: InputMaybe<Order_By>
+  total_position_count?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
 }
 
@@ -3776,53 +3826,70 @@ export type Predicate_Objects_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Predicate_Objects_Stream_Cursor_Value_Input = {
-  id?: InputMaybe<Scalars['String']['input']>
   object_id?: InputMaybe<Scalars['String']['input']>
   predicate_id?: InputMaybe<Scalars['String']['input']>
+  total_market_cap?: InputMaybe<Scalars['numeric']['input']>
+  total_position_count?: InputMaybe<Scalars['Int']['input']>
   triple_count?: InputMaybe<Scalars['Int']['input']>
 }
 
 /** aggregate sum on columns */
 export type Predicate_Objects_Sum_Fields = {
   __typename?: 'predicate_objects_sum_fields'
+  total_market_cap?: Maybe<Scalars['numeric']['output']>
+  total_position_count?: Maybe<Scalars['Int']['output']>
   triple_count?: Maybe<Scalars['Int']['output']>
 }
 
 /** order by sum() on columns of table "predicate_object" */
 export type Predicate_Objects_Sum_Order_By = {
+  total_market_cap?: InputMaybe<Order_By>
+  total_position_count?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
 }
 
 /** aggregate var_pop on columns */
 export type Predicate_Objects_Var_Pop_Fields = {
   __typename?: 'predicate_objects_var_pop_fields'
+  total_market_cap?: Maybe<Scalars['Float']['output']>
+  total_position_count?: Maybe<Scalars['Float']['output']>
   triple_count?: Maybe<Scalars['Float']['output']>
 }
 
 /** order by var_pop() on columns of table "predicate_object" */
 export type Predicate_Objects_Var_Pop_Order_By = {
+  total_market_cap?: InputMaybe<Order_By>
+  total_position_count?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
 }
 
 /** aggregate var_samp on columns */
 export type Predicate_Objects_Var_Samp_Fields = {
   __typename?: 'predicate_objects_var_samp_fields'
+  total_market_cap?: Maybe<Scalars['Float']['output']>
+  total_position_count?: Maybe<Scalars['Float']['output']>
   triple_count?: Maybe<Scalars['Float']['output']>
 }
 
 /** order by var_samp() on columns of table "predicate_object" */
 export type Predicate_Objects_Var_Samp_Order_By = {
+  total_market_cap?: InputMaybe<Order_By>
+  total_position_count?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
 }
 
 /** aggregate variance on columns */
 export type Predicate_Objects_Variance_Fields = {
   __typename?: 'predicate_objects_variance_fields'
+  total_market_cap?: Maybe<Scalars['Float']['output']>
+  total_position_count?: Maybe<Scalars['Float']['output']>
   triple_count?: Maybe<Scalars['Float']['output']>
 }
 
 /** order by variance() on columns of table "predicate_object" */
 export type Predicate_Objects_Variance_Order_By = {
+  total_market_cap?: InputMaybe<Order_By>
+  total_position_count?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
 }
 
@@ -3984,6 +4051,12 @@ export type Query_Root = {
   stats: Array<Stats>
   /** fetch aggregated fields from the table: "stats" */
   stats_aggregate: Stats_Aggregate
+  /** fetch data from the table: "subject_predicate" */
+  subject_predicates: Array<Subject_Predicates>
+  /** fetch aggregated fields from the table: "subject_predicate" */
+  subject_predicates_aggregate: Subject_Predicates_Aggregate
+  /** fetch data from the table: "subject_predicate" using primary key columns */
+  subject_predicates_by_pk?: Maybe<Subject_Predicates>
   /** fetch data from the table: "term" using primary key columns */
   term?: Maybe<Terms>
   /** fetch data from the table: "term_total_state_change_stats_daily" */
@@ -4371,7 +4444,8 @@ export type Query_RootPredicate_Objects_AggregateArgs = {
 }
 
 export type Query_RootPredicate_Objects_By_PkArgs = {
-  id: Scalars['String']['input']
+  object_id: Scalars['String']['input']
+  predicate_id: Scalars['String']['input']
 }
 
 export type Query_RootRedemptionArgs = {
@@ -4596,6 +4670,27 @@ export type Query_RootStats_AggregateArgs = {
   where?: InputMaybe<Stats_Bool_Exp>
 }
 
+export type Query_RootSubject_PredicatesArgs = {
+  distinct_on?: InputMaybe<Array<Subject_Predicates_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Subject_Predicates_Order_By>>
+  where?: InputMaybe<Subject_Predicates_Bool_Exp>
+}
+
+export type Query_RootSubject_Predicates_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Subject_Predicates_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Subject_Predicates_Order_By>>
+  where?: InputMaybe<Subject_Predicates_Bool_Exp>
+}
+
+export type Query_RootSubject_Predicates_By_PkArgs = {
+  predicate_id: Scalars['String']['input']
+  subject_id: Scalars['String']['input']
+}
+
 export type Query_RootTermArgs = {
   id: Scalars['String']['input']
 }
@@ -4781,14 +4876,14 @@ export type Redemptions = {
   id: Scalars['String']['output']
   log_index: Scalars['bigint']['output']
   /** An object relationship */
-  receiver: Accounts
+  receiver?: Maybe<Accounts>
   receiver_id: Scalars['String']['output']
   /** An object relationship */
   sender?: Maybe<Accounts>
   sender_id: Scalars['String']['output']
   shares: Scalars['numeric']['output']
   /** An object relationship */
-  term: Terms
+  term?: Maybe<Terms>
   term_id: Scalars['String']['output']
   total_shares: Scalars['numeric']['output']
   transaction_hash: Scalars['String']['output']
@@ -5982,7 +6077,7 @@ export type Share_Price_Changes = {
   log_index: Scalars['bigint']['output']
   share_price: Scalars['numeric']['output']
   /** An object relationship */
-  term: Terms
+  term?: Maybe<Terms>
   term_id: Scalars['String']['output']
   total_assets: Scalars['numeric']['output']
   total_shares: Scalars['numeric']['output']
@@ -6683,7 +6778,7 @@ export type Signals = {
   redemption?: Maybe<Redemptions>
   redemption_id?: Maybe<Scalars['String']['output']>
   /** An object relationship */
-  term: Terms
+  term?: Maybe<Terms>
   term_id: Scalars['String']['output']
   transaction_hash: Scalars['String']['output']
   triple_id?: Maybe<Scalars['String']['output']>
@@ -7387,6 +7482,213 @@ export type Stats_Variance_Fields = {
   total_triples?: Maybe<Scalars['Float']['output']>
 }
 
+/** columns and relationships of "subject_predicate" */
+export type Subject_Predicates = {
+  __typename?: 'subject_predicates'
+  /** An object relationship */
+  predicate?: Maybe<Atoms>
+  predicate_id: Scalars['String']['output']
+  /** An object relationship */
+  subject?: Maybe<Atoms>
+  subject_id: Scalars['String']['output']
+  total_market_cap: Scalars['numeric']['output']
+  total_position_count: Scalars['Int']['output']
+  triple_count: Scalars['Int']['output']
+  /** An array relationship */
+  triples: Array<Triples>
+  /** An aggregate relationship */
+  triples_aggregate: Triples_Aggregate
+}
+
+/** columns and relationships of "subject_predicate" */
+export type Subject_PredicatesTriplesArgs = {
+  distinct_on?: InputMaybe<Array<Triples_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Triples_Order_By>>
+  where?: InputMaybe<Triples_Bool_Exp>
+}
+
+/** columns and relationships of "subject_predicate" */
+export type Subject_PredicatesTriples_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Triples_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Triples_Order_By>>
+  where?: InputMaybe<Triples_Bool_Exp>
+}
+
+/** aggregated selection of "subject_predicate" */
+export type Subject_Predicates_Aggregate = {
+  __typename?: 'subject_predicates_aggregate'
+  aggregate?: Maybe<Subject_Predicates_Aggregate_Fields>
+  nodes: Array<Subject_Predicates>
+}
+
+/** aggregate fields of "subject_predicate" */
+export type Subject_Predicates_Aggregate_Fields = {
+  __typename?: 'subject_predicates_aggregate_fields'
+  avg?: Maybe<Subject_Predicates_Avg_Fields>
+  count: Scalars['Int']['output']
+  max?: Maybe<Subject_Predicates_Max_Fields>
+  min?: Maybe<Subject_Predicates_Min_Fields>
+  stddev?: Maybe<Subject_Predicates_Stddev_Fields>
+  stddev_pop?: Maybe<Subject_Predicates_Stddev_Pop_Fields>
+  stddev_samp?: Maybe<Subject_Predicates_Stddev_Samp_Fields>
+  sum?: Maybe<Subject_Predicates_Sum_Fields>
+  var_pop?: Maybe<Subject_Predicates_Var_Pop_Fields>
+  var_samp?: Maybe<Subject_Predicates_Var_Samp_Fields>
+  variance?: Maybe<Subject_Predicates_Variance_Fields>
+}
+
+/** aggregate fields of "subject_predicate" */
+export type Subject_Predicates_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Subject_Predicates_Select_Column>>
+  distinct?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+/** aggregate avg on columns */
+export type Subject_Predicates_Avg_Fields = {
+  __typename?: 'subject_predicates_avg_fields'
+  total_market_cap?: Maybe<Scalars['Float']['output']>
+  total_position_count?: Maybe<Scalars['Float']['output']>
+  triple_count?: Maybe<Scalars['Float']['output']>
+}
+
+/** Boolean expression to filter rows from the table "subject_predicate". All fields are combined with a logical 'AND'. */
+export type Subject_Predicates_Bool_Exp = {
+  _and?: InputMaybe<Array<Subject_Predicates_Bool_Exp>>
+  _not?: InputMaybe<Subject_Predicates_Bool_Exp>
+  _or?: InputMaybe<Array<Subject_Predicates_Bool_Exp>>
+  predicate?: InputMaybe<Atoms_Bool_Exp>
+  predicate_id?: InputMaybe<String_Comparison_Exp>
+  subject?: InputMaybe<Atoms_Bool_Exp>
+  subject_id?: InputMaybe<String_Comparison_Exp>
+  total_market_cap?: InputMaybe<Numeric_Comparison_Exp>
+  total_position_count?: InputMaybe<Int_Comparison_Exp>
+  triple_count?: InputMaybe<Int_Comparison_Exp>
+  triples?: InputMaybe<Triples_Bool_Exp>
+  triples_aggregate?: InputMaybe<Triples_Aggregate_Bool_Exp>
+}
+
+/** aggregate max on columns */
+export type Subject_Predicates_Max_Fields = {
+  __typename?: 'subject_predicates_max_fields'
+  predicate_id?: Maybe<Scalars['String']['output']>
+  subject_id?: Maybe<Scalars['String']['output']>
+  total_market_cap?: Maybe<Scalars['numeric']['output']>
+  total_position_count?: Maybe<Scalars['Int']['output']>
+  triple_count?: Maybe<Scalars['Int']['output']>
+}
+
+/** aggregate min on columns */
+export type Subject_Predicates_Min_Fields = {
+  __typename?: 'subject_predicates_min_fields'
+  predicate_id?: Maybe<Scalars['String']['output']>
+  subject_id?: Maybe<Scalars['String']['output']>
+  total_market_cap?: Maybe<Scalars['numeric']['output']>
+  total_position_count?: Maybe<Scalars['Int']['output']>
+  triple_count?: Maybe<Scalars['Int']['output']>
+}
+
+/** Ordering options when selecting data from "subject_predicate". */
+export type Subject_Predicates_Order_By = {
+  predicate?: InputMaybe<Atoms_Order_By>
+  predicate_id?: InputMaybe<Order_By>
+  subject?: InputMaybe<Atoms_Order_By>
+  subject_id?: InputMaybe<Order_By>
+  total_market_cap?: InputMaybe<Order_By>
+  total_position_count?: InputMaybe<Order_By>
+  triple_count?: InputMaybe<Order_By>
+  triples_aggregate?: InputMaybe<Triples_Aggregate_Order_By>
+}
+
+/** select columns of table "subject_predicate" */
+export type Subject_Predicates_Select_Column =
+  /** column name */
+  | 'predicate_id'
+  /** column name */
+  | 'subject_id'
+  /** column name */
+  | 'total_market_cap'
+  /** column name */
+  | 'total_position_count'
+  /** column name */
+  | 'triple_count'
+
+/** aggregate stddev on columns */
+export type Subject_Predicates_Stddev_Fields = {
+  __typename?: 'subject_predicates_stddev_fields'
+  total_market_cap?: Maybe<Scalars['Float']['output']>
+  total_position_count?: Maybe<Scalars['Float']['output']>
+  triple_count?: Maybe<Scalars['Float']['output']>
+}
+
+/** aggregate stddev_pop on columns */
+export type Subject_Predicates_Stddev_Pop_Fields = {
+  __typename?: 'subject_predicates_stddev_pop_fields'
+  total_market_cap?: Maybe<Scalars['Float']['output']>
+  total_position_count?: Maybe<Scalars['Float']['output']>
+  triple_count?: Maybe<Scalars['Float']['output']>
+}
+
+/** aggregate stddev_samp on columns */
+export type Subject_Predicates_Stddev_Samp_Fields = {
+  __typename?: 'subject_predicates_stddev_samp_fields'
+  total_market_cap?: Maybe<Scalars['Float']['output']>
+  total_position_count?: Maybe<Scalars['Float']['output']>
+  triple_count?: Maybe<Scalars['Float']['output']>
+}
+
+/** Streaming cursor of the table "subject_predicates" */
+export type Subject_Predicates_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Subject_Predicates_Stream_Cursor_Value_Input
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>
+}
+
+/** Initial value of the column from where the streaming should start */
+export type Subject_Predicates_Stream_Cursor_Value_Input = {
+  predicate_id?: InputMaybe<Scalars['String']['input']>
+  subject_id?: InputMaybe<Scalars['String']['input']>
+  total_market_cap?: InputMaybe<Scalars['numeric']['input']>
+  total_position_count?: InputMaybe<Scalars['Int']['input']>
+  triple_count?: InputMaybe<Scalars['Int']['input']>
+}
+
+/** aggregate sum on columns */
+export type Subject_Predicates_Sum_Fields = {
+  __typename?: 'subject_predicates_sum_fields'
+  total_market_cap?: Maybe<Scalars['numeric']['output']>
+  total_position_count?: Maybe<Scalars['Int']['output']>
+  triple_count?: Maybe<Scalars['Int']['output']>
+}
+
+/** aggregate var_pop on columns */
+export type Subject_Predicates_Var_Pop_Fields = {
+  __typename?: 'subject_predicates_var_pop_fields'
+  total_market_cap?: Maybe<Scalars['Float']['output']>
+  total_position_count?: Maybe<Scalars['Float']['output']>
+  triple_count?: Maybe<Scalars['Float']['output']>
+}
+
+/** aggregate var_samp on columns */
+export type Subject_Predicates_Var_Samp_Fields = {
+  __typename?: 'subject_predicates_var_samp_fields'
+  total_market_cap?: Maybe<Scalars['Float']['output']>
+  total_position_count?: Maybe<Scalars['Float']['output']>
+  triple_count?: Maybe<Scalars['Float']['output']>
+}
+
+/** aggregate variance on columns */
+export type Subject_Predicates_Variance_Fields = {
+  __typename?: 'subject_predicates_variance_fields'
+  total_market_cap?: Maybe<Scalars['Float']['output']>
+  total_position_count?: Maybe<Scalars['Float']['output']>
+  triple_count?: Maybe<Scalars['Float']['output']>
+}
+
 export type Subscription_Root = {
   __typename?: 'subscription_root'
   /** fetch data from the table: "account" using primary key columns */
@@ -7603,6 +7905,14 @@ export type Subscription_Root = {
   stats_aggregate: Stats_Aggregate
   /** fetch data from the table in a streaming manner: "stats" */
   stats_stream: Array<Stats>
+  /** fetch data from the table: "subject_predicate" */
+  subject_predicates: Array<Subject_Predicates>
+  /** fetch aggregated fields from the table: "subject_predicate" */
+  subject_predicates_aggregate: Subject_Predicates_Aggregate
+  /** fetch data from the table: "subject_predicate" using primary key columns */
+  subject_predicates_by_pk?: Maybe<Subject_Predicates>
+  /** fetch data from the table in a streaming manner: "subject_predicate" */
+  subject_predicates_stream: Array<Subject_Predicates>
   /** fetch data from the table: "term" using primary key columns */
   term?: Maybe<Terms>
   /** fetch data from the table: "term_total_state_change_stats_daily" */
@@ -8104,7 +8414,8 @@ export type Subscription_RootPredicate_Objects_AggregateArgs = {
 }
 
 export type Subscription_RootPredicate_Objects_By_PkArgs = {
-  id: Scalars['String']['input']
+  object_id: Scalars['String']['input']
+  predicate_id: Scalars['String']['input']
 }
 
 export type Subscription_RootPredicate_Objects_StreamArgs = {
@@ -8413,6 +8724,33 @@ export type Subscription_RootStats_StreamArgs = {
   batch_size: Scalars['Int']['input']
   cursor: Array<InputMaybe<Stats_Stream_Cursor_Input>>
   where?: InputMaybe<Stats_Bool_Exp>
+}
+
+export type Subscription_RootSubject_PredicatesArgs = {
+  distinct_on?: InputMaybe<Array<Subject_Predicates_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Subject_Predicates_Order_By>>
+  where?: InputMaybe<Subject_Predicates_Bool_Exp>
+}
+
+export type Subscription_RootSubject_Predicates_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Subject_Predicates_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Subject_Predicates_Order_By>>
+  where?: InputMaybe<Subject_Predicates_Bool_Exp>
+}
+
+export type Subscription_RootSubject_Predicates_By_PkArgs = {
+  predicate_id: Scalars['String']['input']
+  subject_id: Scalars['String']['input']
+}
+
+export type Subscription_RootSubject_Predicates_StreamArgs = {
+  batch_size: Scalars['Int']['input']
+  cursor: Array<InputMaybe<Subject_Predicates_Stream_Cursor_Input>>
+  where?: InputMaybe<Subject_Predicates_Bool_Exp>
 }
 
 export type Subscription_RootTermArgs = {
@@ -9425,6 +9763,7 @@ export type Terms = {
   /** An object relationship */
   atomById?: Maybe<Atoms>
   atom_id?: Maybe<Scalars['String']['output']>
+  created_at: Scalars['timestamptz']['output']
   /** An array relationship */
   deposits: Array<Deposits>
   /** An aggregate relationship */
@@ -9721,6 +10060,7 @@ export type Terms_Bool_Exp = {
   atom?: InputMaybe<Atoms_Bool_Exp>
   atomById?: InputMaybe<Atoms_Bool_Exp>
   atom_id?: InputMaybe<String_Comparison_Exp>
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>
   deposits?: InputMaybe<Deposits_Bool_Exp>
   deposits_aggregate?: InputMaybe<Deposits_Aggregate_Bool_Exp>
   id?: InputMaybe<String_Comparison_Exp>
@@ -9756,6 +10096,7 @@ export type Terms_Bool_Exp = {
 export type Terms_Max_Fields = {
   __typename?: 'terms_max_fields'
   atom_id?: Maybe<Scalars['String']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   id?: Maybe<Scalars['String']['output']>
   total_assets?: Maybe<Scalars['numeric']['output']>
   total_market_cap?: Maybe<Scalars['numeric']['output']>
@@ -9768,6 +10109,7 @@ export type Terms_Max_Fields = {
 export type Terms_Min_Fields = {
   __typename?: 'terms_min_fields'
   atom_id?: Maybe<Scalars['String']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   id?: Maybe<Scalars['String']['output']>
   total_assets?: Maybe<Scalars['numeric']['output']>
   total_market_cap?: Maybe<Scalars['numeric']['output']>
@@ -9781,6 +10123,7 @@ export type Terms_Order_By = {
   atom?: InputMaybe<Atoms_Order_By>
   atomById?: InputMaybe<Atoms_Order_By>
   atom_id?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   deposits_aggregate?: InputMaybe<Deposits_Aggregate_Order_By>
   id?: InputMaybe<Order_By>
   positions_aggregate?: InputMaybe<Positions_Aggregate_Order_By>
@@ -9810,6 +10153,8 @@ export type Terms_Order_By = {
 export type Terms_Select_Column =
   /** column name */
   | 'atom_id'
+  /** column name */
+  | 'created_at'
   /** column name */
   | 'id'
   /** column name */
@@ -9855,6 +10200,7 @@ export type Terms_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Terms_Stream_Cursor_Value_Input = {
   atom_id?: InputMaybe<Scalars['String']['input']>
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>
   id?: InputMaybe<Scalars['String']['input']>
   total_assets?: InputMaybe<Scalars['numeric']['input']>
   total_market_cap?: InputMaybe<Scalars['numeric']['input']>
@@ -10097,10 +10443,10 @@ export type Timestamptz_Comparison_Exp = {
 export type Triple_Term = {
   __typename?: 'triple_term'
   /** An object relationship */
-  counter_term: Terms
+  counter_term?: Maybe<Terms>
   counter_term_id: Scalars['String']['output']
   /** An object relationship */
-  term: Terms
+  term?: Maybe<Terms>
   term_id: Scalars['String']['output']
   total_assets: Scalars['numeric']['output']
   total_market_cap: Scalars['numeric']['output']
@@ -10283,17 +10629,17 @@ export type Triples = {
   creator?: Maybe<Accounts>
   creator_id: Scalars['String']['output']
   /** An object relationship */
-  object: Atoms
+  object?: Maybe<Atoms>
   object_id: Scalars['String']['output']
   /** An array relationship */
   positions: Array<Positions>
   /** An aggregate relationship */
   positions_aggregate: Positions_Aggregate
   /** An object relationship */
-  predicate: Atoms
+  predicate?: Maybe<Atoms>
   predicate_id: Scalars['String']['output']
   /** An object relationship */
-  subject: Atoms
+  subject?: Maybe<Atoms>
   subject_id: Scalars['String']['output']
   /** An object relationship */
   term?: Maybe<Terms>
@@ -10683,7 +11029,7 @@ export type Vaults = {
   /** An aggregate relationship */
   signals_aggregate: Signals_Aggregate
   /** An object relationship */
-  term: Terms
+  term?: Maybe<Terms>
   term_id: Scalars['String']['output']
   total_assets: Scalars['numeric']['output']
   total_shares: Scalars['numeric']['output']
@@ -11294,7 +11640,7 @@ export type AccountPositionsAggregateFragment = {
         term_id: string
         total_shares: any
         current_share_price: any
-        term: {
+        term?: {
           __typename?: 'terms'
           atom?: {
             __typename?: 'atoms'
@@ -11302,7 +11648,7 @@ export type AccountPositionsAggregateFragment = {
             label?: string | null
           } | null
           triple?: { __typename?: 'triples'; term_id: string } | null
-        }
+        } | null
       } | null
     }>
   }
@@ -11319,7 +11665,7 @@ export type AccountPositionsFragment = {
       term_id: string
       total_shares: any
       current_share_price: any
-      term: {
+      term?: {
         __typename?: 'terms'
         atom?: {
           __typename?: 'atoms'
@@ -11327,7 +11673,7 @@ export type AccountPositionsFragment = {
           label?: string | null
         } | null
         triple?: { __typename?: 'triples'; term_id: string } | null
-      }
+      } | null
     } | null
   }>
 }
@@ -11339,7 +11685,7 @@ export type AccountAtomsFragment = {
     term_id: string
     label?: string | null
     data?: string | null
-    term: {
+    term?: {
       __typename?: 'terms'
       vaults: Array<{
         __typename?: 'vaults'
@@ -11353,7 +11699,7 @@ export type AccountAtomsFragment = {
           }>
         }
       }>
-    }
+    } | null
   }>
 }
 
@@ -11374,7 +11720,7 @@ export type AccountAtomsAggregateFragment = {
       term_id: string
       label?: string | null
       data?: string | null
-      term: {
+      term?: {
         __typename?: 'terms'
         vaults: Array<{
           __typename?: 'vaults'
@@ -11388,7 +11734,7 @@ export type AccountAtomsAggregateFragment = {
             }>
           }
         }>
-      }
+      } | null
     }>
   }
 }
@@ -11404,13 +11750,21 @@ export type AccountTriplesFragment = {
     nodes: Array<{
       __typename?: 'triples'
       term_id: string
-      subject: { __typename?: 'atoms'; term_id: string; label?: string | null }
-      predicate: {
+      subject?: {
         __typename?: 'atoms'
         term_id: string
         label?: string | null
-      }
-      object: { __typename?: 'atoms'; term_id: string; label?: string | null }
+      } | null
+      predicate?: {
+        __typename?: 'atoms'
+        term_id: string
+        label?: string | null
+      } | null
+      object?: {
+        __typename?: 'atoms'
+        term_id: string
+        label?: string | null
+      } | null
     }>
   }
 }
@@ -11426,13 +11780,21 @@ export type AccountTriplesAggregateFragment = {
     nodes: Array<{
       __typename?: 'triples'
       term_id: string
-      subject: { __typename?: 'atoms'; term_id: string; label?: string | null }
-      predicate: {
+      subject?: {
         __typename?: 'atoms'
         term_id: string
         label?: string | null
-      }
-      object: { __typename?: 'atoms'; term_id: string; label?: string | null }
+      } | null
+      predicate?: {
+        __typename?: 'atoms'
+        term_id: string
+        label?: string | null
+      } | null
+      object?: {
+        __typename?: 'atoms'
+        term_id: string
+        label?: string | null
+      } | null
     }>
   }
 }
@@ -11474,12 +11836,12 @@ export type AtomMetadataFragment = {
   emoji?: string | null
   type: any
   wallet_id: string
-  creator: {
+  creator?: {
     __typename?: 'accounts'
     id: string
     label: string
     image?: string | null
-  }
+  } | null
   value?: {
     __typename?: 'atom_values'
     person?: {
@@ -11518,7 +11880,7 @@ export type AtomVaultDetailsFragment = {
   __typename?: 'atoms'
   term_id: string
   wallet_id: string
-  term: {
+  term?: {
     __typename?: 'terms'
     vaults: Array<{
       __typename?: 'vaults'
@@ -11550,7 +11912,7 @@ export type AtomVaultDetailsFragment = {
         count: number
       } | null
     }
-  }
+  } | null
 }
 
 export type AtomTripleFragment = {
@@ -11558,7 +11920,7 @@ export type AtomTripleFragment = {
   as_subject_triples: Array<{
     __typename?: 'triples'
     term_id: string
-    object: {
+    object?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -11566,16 +11928,16 @@ export type AtomTripleFragment = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
-    }
-    predicate: {
+      } | null
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -11583,20 +11945,20 @@ export type AtomTripleFragment = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
-    }
+      } | null
+    } | null
   }>
   as_predicate_triples: Array<{
     __typename?: 'triples'
     term_id: string
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -11604,16 +11966,16 @@ export type AtomTripleFragment = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
-    }
-    object: {
+      } | null
+    } | null
+    object?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -11621,20 +11983,20 @@ export type AtomTripleFragment = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
-    }
+      } | null
+    } | null
   }>
   as_object_triples: Array<{
     __typename?: 'triples'
     term_id: string
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -11642,16 +12004,16 @@ export type AtomTripleFragment = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
-    }
-    predicate: {
+      } | null
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -11659,21 +12021,21 @@ export type AtomTripleFragment = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
-    }
+      } | null
+    } | null
   }>
 }
 
 export type AtomVaultDetailsWithPositionsFragment = {
   __typename?: 'atoms'
-  term: {
+  term?: {
     __typename?: 'terms'
     vaults: Array<{
       __typename?: 'vaults'
@@ -11695,7 +12057,7 @@ export type AtomVaultDetailsWithPositionsFragment = {
         }>
       }
     }>
-  }
+  } | null
 }
 
 export type DepositEventFragmentFragment = {
@@ -11704,7 +12066,7 @@ export type DepositEventFragmentFragment = {
     __typename?: 'deposits'
     term_id: string
     curve_id: any
-    receiver: { __typename?: 'accounts'; id: string }
+    receiver?: { __typename?: 'accounts'; id: string } | null
     sender?: { __typename?: 'accounts'; id: string } | null
   } | null
 }
@@ -11728,7 +12090,7 @@ export type EventDetailsFragment = {
     emoji?: string | null
     type: any
     wallet_id: string
-    term: {
+    term?: {
       __typename?: 'terms'
       positions_aggregate: {
         __typename?: 'positions_aggregate'
@@ -11753,13 +12115,13 @@ export type EventDetailsFragment = {
           } | null
         }>
       }>
-    }
-    creator: {
+    } | null
+    creator?: {
       __typename?: 'accounts'
       id: string
       label: string
       image?: string | null
-    }
+    } | null
     value?: {
       __typename?: 'atom_values'
       person?: {
@@ -11879,7 +12241,7 @@ export type EventDetailsFragment = {
         }
       }>
     } | null
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -11887,14 +12249,14 @@ export type EventDetailsFragment = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -11919,8 +12281,8 @@ export type EventDetailsFragment = {
           url?: string | null
         } | null
       } | null
-    }
-    predicate: {
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -11928,14 +12290,14 @@ export type EventDetailsFragment = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -11960,8 +12322,8 @@ export type EventDetailsFragment = {
           url?: string | null
         } | null
       } | null
-    }
-    object: {
+    } | null
+    object?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -11969,14 +12331,14 @@ export type EventDetailsFragment = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -12001,13 +12363,13 @@ export type EventDetailsFragment = {
           url?: string | null
         } | null
       } | null
-    }
+    } | null
   } | null
   deposit?: {
     __typename?: 'deposits'
     term_id: string
     curve_id: any
-    receiver: { __typename?: 'accounts'; id: string }
+    receiver?: { __typename?: 'accounts'; id: string } | null
     sender?: { __typename?: 'accounts'; id: string } | null
   } | null
   redemption?: {
@@ -12037,7 +12399,7 @@ export type EventDetailsSubscriptionFragment = {
     emoji?: string | null
     type: any
     wallet_id: string
-    term: {
+    term?: {
       __typename?: 'terms'
       id: string
       total_market_cap?: any | null
@@ -12053,13 +12415,13 @@ export type EventDetailsSubscriptionFragment = {
           image?: string | null
         } | null
       }>
-    }
-    creator: {
+    } | null
+    creator?: {
       __typename?: 'accounts'
       id: string
       label: string
       image?: string | null
-    }
+    } | null
     value?: {
       __typename?: 'atom_values'
       person?: {
@@ -12108,7 +12470,7 @@ export type EventDetailsSubscriptionFragment = {
         curve_id: any
         current_share_price: any
         total_shares: any
-        term: {
+        term?: {
           __typename?: 'terms'
           atom?: {
             __typename?: 'atoms'
@@ -12118,23 +12480,23 @@ export type EventDetailsSubscriptionFragment = {
           triple?: {
             __typename?: 'triples'
             term_id: string
-            subject: {
+            subject?: {
               __typename?: 'atoms'
               term_id: string
               label?: string | null
-            }
-            predicate: {
+            } | null
+            predicate?: {
               __typename?: 'atoms'
               term_id: string
               label?: string | null
-            }
-            object: {
+            } | null
+            object?: {
               __typename?: 'atoms'
               term_id: string
               label?: string | null
-            }
+            } | null
           } | null
-        }
+        } | null
         positions: Array<{
           __typename?: 'positions'
           shares: any
@@ -12167,7 +12529,7 @@ export type EventDetailsSubscriptionFragment = {
         curve_id: any
         current_share_price: any
         total_shares: any
-        term: {
+        term?: {
           __typename?: 'terms'
           atom?: {
             __typename?: 'atoms'
@@ -12177,23 +12539,23 @@ export type EventDetailsSubscriptionFragment = {
           triple?: {
             __typename?: 'triples'
             term_id: string
-            subject: {
+            subject?: {
               __typename?: 'atoms'
               term_id: string
               label?: string | null
-            }
-            predicate: {
+            } | null
+            predicate?: {
               __typename?: 'atoms'
               term_id: string
               label?: string | null
-            }
-            object: {
+            } | null
+            object?: {
               __typename?: 'atoms'
               term_id: string
               label?: string | null
-            }
+            } | null
           } | null
-        }
+        } | null
         positions: Array<{
           __typename?: 'positions'
           shares: any
@@ -12217,7 +12579,7 @@ export type EventDetailsSubscriptionFragment = {
       label: string
       id: string
     } | null
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -12225,8 +12587,8 @@ export type EventDetailsSubscriptionFragment = {
       label?: string | null
       emoji?: string | null
       type: any
-    }
-    predicate: {
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -12234,8 +12596,8 @@ export type EventDetailsSubscriptionFragment = {
       label?: string | null
       emoji?: string | null
       type: any
-    }
-    object: {
+    } | null
+    object?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -12243,13 +12605,13 @@ export type EventDetailsSubscriptionFragment = {
       label?: string | null
       emoji?: string | null
       type: any
-    }
+    } | null
   } | null
   deposit?: {
     __typename?: 'deposits'
     term_id: string
     curve_id: any
-    receiver: { __typename?: 'accounts'; id: string }
+    receiver?: { __typename?: 'accounts'; id: string } | null
     sender?: { __typename?: 'accounts'; id: string } | null
   } | null
   redemption?: {
@@ -12263,9 +12625,21 @@ export type EventDetailsSubscriptionFragment = {
 export type FollowMetadataFragment = {
   __typename?: 'triples'
   term_id: string
-  subject: { __typename?: 'atoms'; term_id: string; label?: string | null }
-  predicate: { __typename?: 'atoms'; term_id: string; label?: string | null }
-  object: { __typename?: 'atoms'; term_id: string; label?: string | null }
+  subject?: {
+    __typename?: 'atoms'
+    term_id: string
+    label?: string | null
+  } | null
+  predicate?: {
+    __typename?: 'atoms'
+    term_id: string
+    label?: string | null
+  } | null
+  object?: {
+    __typename?: 'atoms'
+    term_id: string
+    label?: string | null
+  } | null
   term?: {
     __typename?: 'terms'
     vaults: Array<{
@@ -12313,7 +12687,7 @@ export type PositionDetailsFragment = {
   vault?: {
     __typename?: 'vaults'
     term_id: string
-    term: {
+    term?: {
       __typename?: 'terms'
       atom?: {
         __typename?: 'atoms'
@@ -12360,7 +12734,7 @@ export type PositionDetailsFragment = {
             }
           }>
         } | null
-        subject: {
+        subject?: {
           __typename?: 'atoms'
           data?: string | null
           term_id: string
@@ -12368,14 +12742,14 @@ export type PositionDetailsFragment = {
           image?: string | null
           emoji?: string | null
           type: any
-          creator: {
+          creator?: {
             __typename?: 'accounts'
             label: string
             image?: string | null
             id: string
             atom_id?: string | null
             type: any
-          }
+          } | null
           value?: {
             __typename?: 'atom_values'
             person?: {
@@ -12400,8 +12774,8 @@ export type PositionDetailsFragment = {
               url?: string | null
             } | null
           } | null
-        }
-        predicate: {
+        } | null
+        predicate?: {
           __typename?: 'atoms'
           data?: string | null
           term_id: string
@@ -12409,14 +12783,14 @@ export type PositionDetailsFragment = {
           image?: string | null
           emoji?: string | null
           type: any
-          creator: {
+          creator?: {
             __typename?: 'accounts'
             label: string
             image?: string | null
             id: string
             atom_id?: string | null
             type: any
-          }
+          } | null
           value?: {
             __typename?: 'atom_values'
             person?: {
@@ -12441,8 +12815,8 @@ export type PositionDetailsFragment = {
               url?: string | null
             } | null
           } | null
-        }
-        object: {
+        } | null
+        object?: {
           __typename?: 'atoms'
           data?: string | null
           term_id: string
@@ -12450,14 +12824,14 @@ export type PositionDetailsFragment = {
           image?: string | null
           emoji?: string | null
           type: any
-          creator: {
+          creator?: {
             __typename?: 'accounts'
             label: string
             image?: string | null
             id: string
             atom_id?: string | null
             type: any
-          }
+          } | null
           value?: {
             __typename?: 'atom_values'
             person?: {
@@ -12482,9 +12856,9 @@ export type PositionDetailsFragment = {
               url?: string | null
             } | null
           } | null
-        }
+        } | null
       } | null
-    }
+    } | null
   } | null
 }
 
@@ -12536,7 +12910,7 @@ export type TripleMetadataFragment = {
   subject_id: string
   predicate_id: string
   object_id: string
-  subject: {
+  subject?: {
     __typename?: 'atoms'
     data?: string | null
     term_id: string
@@ -12544,14 +12918,14 @@ export type TripleMetadataFragment = {
     label?: string | null
     emoji?: string | null
     type: any
-    creator: {
+    creator?: {
       __typename?: 'accounts'
       label: string
       image?: string | null
       id: string
       atom_id?: string | null
       type: any
-    }
+    } | null
     value?: {
       __typename?: 'atom_values'
       person?: {
@@ -12576,8 +12950,8 @@ export type TripleMetadataFragment = {
         url?: string | null
       } | null
     } | null
-  }
-  predicate: {
+  } | null
+  predicate?: {
     __typename?: 'atoms'
     data?: string | null
     term_id: string
@@ -12585,14 +12959,14 @@ export type TripleMetadataFragment = {
     label?: string | null
     emoji?: string | null
     type: any
-    creator: {
+    creator?: {
       __typename?: 'accounts'
       label: string
       image?: string | null
       id: string
       atom_id?: string | null
       type: any
-    }
+    } | null
     value?: {
       __typename?: 'atom_values'
       person?: {
@@ -12617,8 +12991,8 @@ export type TripleMetadataFragment = {
         url?: string | null
       } | null
     } | null
-  }
-  object: {
+  } | null
+  object?: {
     __typename?: 'atoms'
     data?: string | null
     term_id: string
@@ -12626,14 +13000,14 @@ export type TripleMetadataFragment = {
     label?: string | null
     emoji?: string | null
     type: any
-    creator: {
+    creator?: {
       __typename?: 'accounts'
       label: string
       image?: string | null
       id: string
       atom_id?: string | null
       type: any
-    }
+    } | null
     value?: {
       __typename?: 'atom_values'
       person?: {
@@ -12658,7 +13032,7 @@ export type TripleMetadataFragment = {
         url?: string | null
       } | null
     } | null
-  }
+  } | null
   term?: {
     __typename?: 'terms'
     vaults: Array<{
@@ -12754,7 +13128,7 @@ export type TripleVaultDetailsFragment = {
         vault?: {
           __typename?: 'vaults'
           term_id: string
-          term: {
+          term?: {
             __typename?: 'terms'
             atom?: {
               __typename?: 'atoms'
@@ -12801,7 +13175,7 @@ export type TripleVaultDetailsFragment = {
                   }
                 }>
               } | null
-              subject: {
+              subject?: {
                 __typename?: 'atoms'
                 data?: string | null
                 term_id: string
@@ -12809,14 +13183,14 @@ export type TripleVaultDetailsFragment = {
                 image?: string | null
                 emoji?: string | null
                 type: any
-                creator: {
+                creator?: {
                   __typename?: 'accounts'
                   label: string
                   image?: string | null
                   id: string
                   atom_id?: string | null
                   type: any
-                }
+                } | null
                 value?: {
                   __typename?: 'atom_values'
                   person?: {
@@ -12841,8 +13215,8 @@ export type TripleVaultDetailsFragment = {
                     url?: string | null
                   } | null
                 } | null
-              }
-              predicate: {
+              } | null
+              predicate?: {
                 __typename?: 'atoms'
                 data?: string | null
                 term_id: string
@@ -12850,14 +13224,14 @@ export type TripleVaultDetailsFragment = {
                 image?: string | null
                 emoji?: string | null
                 type: any
-                creator: {
+                creator?: {
                   __typename?: 'accounts'
                   label: string
                   image?: string | null
                   id: string
                   atom_id?: string | null
                   type: any
-                }
+                } | null
                 value?: {
                   __typename?: 'atom_values'
                   person?: {
@@ -12882,8 +13256,8 @@ export type TripleVaultDetailsFragment = {
                     url?: string | null
                   } | null
                 } | null
-              }
-              object: {
+              } | null
+              object?: {
                 __typename?: 'atoms'
                 data?: string | null
                 term_id: string
@@ -12891,14 +13265,14 @@ export type TripleVaultDetailsFragment = {
                 image?: string | null
                 emoji?: string | null
                 type: any
-                creator: {
+                creator?: {
                   __typename?: 'accounts'
                   label: string
                   image?: string | null
                   id: string
                   atom_id?: string | null
                   type: any
-                }
+                } | null
                 value?: {
                   __typename?: 'atom_values'
                   person?: {
@@ -12923,9 +13297,9 @@ export type TripleVaultDetailsFragment = {
                     url?: string | null
                   } | null
                 } | null
-              }
+              } | null
             } | null
-          }
+          } | null
         } | null
       }>
     }>
@@ -12949,7 +13323,7 @@ export type TripleVaultDetailsFragment = {
         vault?: {
           __typename?: 'vaults'
           term_id: string
-          term: {
+          term?: {
             __typename?: 'terms'
             atom?: {
               __typename?: 'atoms'
@@ -12996,7 +13370,7 @@ export type TripleVaultDetailsFragment = {
                   }
                 }>
               } | null
-              subject: {
+              subject?: {
                 __typename?: 'atoms'
                 data?: string | null
                 term_id: string
@@ -13004,14 +13378,14 @@ export type TripleVaultDetailsFragment = {
                 image?: string | null
                 emoji?: string | null
                 type: any
-                creator: {
+                creator?: {
                   __typename?: 'accounts'
                   label: string
                   image?: string | null
                   id: string
                   atom_id?: string | null
                   type: any
-                }
+                } | null
                 value?: {
                   __typename?: 'atom_values'
                   person?: {
@@ -13036,8 +13410,8 @@ export type TripleVaultDetailsFragment = {
                     url?: string | null
                   } | null
                 } | null
-              }
-              predicate: {
+              } | null
+              predicate?: {
                 __typename?: 'atoms'
                 data?: string | null
                 term_id: string
@@ -13045,14 +13419,14 @@ export type TripleVaultDetailsFragment = {
                 image?: string | null
                 emoji?: string | null
                 type: any
-                creator: {
+                creator?: {
                   __typename?: 'accounts'
                   label: string
                   image?: string | null
                   id: string
                   atom_id?: string | null
                   type: any
-                }
+                } | null
                 value?: {
                   __typename?: 'atom_values'
                   person?: {
@@ -13077,8 +13451,8 @@ export type TripleVaultDetailsFragment = {
                     url?: string | null
                   } | null
                 } | null
-              }
-              object: {
+              } | null
+              object?: {
                 __typename?: 'atoms'
                 data?: string | null
                 term_id: string
@@ -13086,14 +13460,14 @@ export type TripleVaultDetailsFragment = {
                 image?: string | null
                 emoji?: string | null
                 type: any
-                creator: {
+                creator?: {
                   __typename?: 'accounts'
                   label: string
                   image?: string | null
                   id: string
                   atom_id?: string | null
                   type: any
-                }
+                } | null
                 value?: {
                   __typename?: 'atom_values'
                   person?: {
@@ -13118,9 +13492,9 @@ export type TripleVaultDetailsFragment = {
                     url?: string | null
                   } | null
                 } | null
-              }
+              } | null
             } | null
-          }
+          } | null
         } | null
       }>
     }>
@@ -13139,7 +13513,7 @@ export type TripleVaultCouterVaultDetailsWithPositionsFragment = {
       curve_id: any
       current_share_price: any
       total_shares: any
-      term: {
+      term?: {
         __typename?: 'terms'
         atom?: {
           __typename?: 'atoms'
@@ -13149,23 +13523,23 @@ export type TripleVaultCouterVaultDetailsWithPositionsFragment = {
         triple?: {
           __typename?: 'triples'
           term_id: string
-          subject: {
+          subject?: {
             __typename?: 'atoms'
             term_id: string
             label?: string | null
-          }
-          predicate: {
+          } | null
+          predicate?: {
             __typename?: 'atoms'
             term_id: string
             label?: string | null
-          }
-          object: {
+          } | null
+          object?: {
             __typename?: 'atoms'
             term_id: string
             label?: string | null
-          }
+          } | null
         } | null
-      }
+      } | null
       positions: Array<{
         __typename?: 'positions'
         shares: any
@@ -13187,7 +13561,7 @@ export type TripleVaultCouterVaultDetailsWithPositionsFragment = {
       curve_id: any
       current_share_price: any
       total_shares: any
-      term: {
+      term?: {
         __typename?: 'terms'
         atom?: {
           __typename?: 'atoms'
@@ -13197,23 +13571,23 @@ export type TripleVaultCouterVaultDetailsWithPositionsFragment = {
         triple?: {
           __typename?: 'triples'
           term_id: string
-          subject: {
+          subject?: {
             __typename?: 'atoms'
             term_id: string
             label?: string | null
-          }
-          predicate: {
+          } | null
+          predicate?: {
             __typename?: 'atoms'
             term_id: string
             label?: string | null
-          }
-          object: {
+          } | null
+          object?: {
             __typename?: 'atoms'
             term_id: string
             label?: string | null
-          }
+          } | null
         } | null
-      }
+      } | null
       positions: Array<{
         __typename?: 'positions'
         shares: any
@@ -13242,7 +13616,7 @@ export type TripleMetadataSubscriptionFragment = {
     label: string
     id: string
   } | null
-  subject: {
+  subject?: {
     __typename?: 'atoms'
     data?: string | null
     term_id: string
@@ -13250,8 +13624,8 @@ export type TripleMetadataSubscriptionFragment = {
     label?: string | null
     emoji?: string | null
     type: any
-  }
-  predicate: {
+  } | null
+  predicate?: {
     __typename?: 'atoms'
     data?: string | null
     term_id: string
@@ -13259,8 +13633,8 @@ export type TripleMetadataSubscriptionFragment = {
     label?: string | null
     emoji?: string | null
     type: any
-  }
-  object: {
+  } | null
+  object?: {
     __typename?: 'atoms'
     data?: string | null
     term_id: string
@@ -13268,7 +13642,7 @@ export type TripleMetadataSubscriptionFragment = {
     label?: string | null
     emoji?: string | null
     type: any
-  }
+  } | null
 }
 
 export type VaultBasicDetailsFragment = {
@@ -13277,7 +13651,7 @@ export type VaultBasicDetailsFragment = {
   curve_id: any
   current_share_price: any
   total_shares: any
-  term: {
+  term?: {
     __typename?: 'terms'
     atom?: {
       __typename?: 'atoms'
@@ -13287,15 +13661,23 @@ export type VaultBasicDetailsFragment = {
     triple?: {
       __typename?: 'triples'
       term_id: string
-      subject: { __typename?: 'atoms'; term_id: string; label?: string | null }
-      predicate: {
+      subject?: {
         __typename?: 'atoms'
         term_id: string
         label?: string | null
-      }
-      object: { __typename?: 'atoms'; term_id: string; label?: string | null }
+      } | null
+      predicate?: {
+        __typename?: 'atoms'
+        term_id: string
+        label?: string | null
+      } | null
+      object?: {
+        __typename?: 'atoms'
+        term_id: string
+        label?: string | null
+      } | null
     } | null
-  }
+  } | null
 }
 
 export type VaultPositionsAggregateFragment = {
@@ -13346,7 +13728,7 @@ export type VaultDetailsFragment = {
   curve_id: any
   current_share_price: any
   total_shares: any
-  term: {
+  term?: {
     __typename?: 'terms'
     atom?: {
       __typename?: 'atoms'
@@ -13356,15 +13738,23 @@ export type VaultDetailsFragment = {
     triple?: {
       __typename?: 'triples'
       term_id: string
-      subject: { __typename?: 'atoms'; term_id: string; label?: string | null }
-      predicate: {
+      subject?: {
         __typename?: 'atoms'
         term_id: string
         label?: string | null
-      }
-      object: { __typename?: 'atoms'; term_id: string; label?: string | null }
+      } | null
+      predicate?: {
+        __typename?: 'atoms'
+        term_id: string
+        label?: string | null
+      } | null
+      object?: {
+        __typename?: 'atoms'
+        term_id: string
+        label?: string | null
+      } | null
     } | null
-  }
+  } | null
 }
 
 export type VaultDetailsWithFilteredPositionsFragment = {
@@ -13373,7 +13763,7 @@ export type VaultDetailsWithFilteredPositionsFragment = {
   curve_id: any
   current_share_price: any
   total_shares: any
-  term: {
+  term?: {
     __typename?: 'terms'
     atom?: {
       __typename?: 'atoms'
@@ -13383,15 +13773,23 @@ export type VaultDetailsWithFilteredPositionsFragment = {
     triple?: {
       __typename?: 'triples'
       term_id: string
-      subject: { __typename?: 'atoms'; term_id: string; label?: string | null }
-      predicate: {
+      subject?: {
         __typename?: 'atoms'
         term_id: string
         label?: string | null
-      }
-      object: { __typename?: 'atoms'; term_id: string; label?: string | null }
+      } | null
+      predicate?: {
+        __typename?: 'atoms'
+        term_id: string
+        label?: string | null
+      } | null
+      object?: {
+        __typename?: 'atoms'
+        term_id: string
+        label?: string | null
+      } | null
     } | null
-  }
+  } | null
   positions: Array<{
     __typename?: 'positions'
     shares: any
@@ -13481,7 +13879,7 @@ export type GetAccountsQuery = {
       __typename?: 'atoms'
       term_id: string
       wallet_id: string
-      term: {
+      term?: {
         __typename?: 'terms'
         vaults: Array<{
           __typename?: 'vaults'
@@ -13509,7 +13907,7 @@ export type GetAccountsQuery = {
             } | null
           }>
         }>
-      }
+      } | null
     } | null
     positions: Array<{
       __typename?: 'positions'
@@ -13520,7 +13918,7 @@ export type GetAccountsQuery = {
         term_id: string
         total_shares: any
         current_share_price: any
-        term: {
+        term?: {
           __typename?: 'terms'
           atom?: {
             __typename?: 'atoms'
@@ -13528,7 +13926,7 @@ export type GetAccountsQuery = {
             label?: string | null
           } | null
           triple?: { __typename?: 'triples'; term_id: string } | null
-        }
+        } | null
       } | null
     }>
   }>
@@ -13574,7 +13972,7 @@ export type GetAccountsWithAggregatesQuery = {
           term_id: string
           total_shares: any
           current_share_price: any
-          term: {
+          term?: {
             __typename?: 'terms'
             atom?: {
               __typename?: 'atoms'
@@ -13582,7 +13980,7 @@ export type GetAccountsWithAggregatesQuery = {
               label?: string | null
             } | null
             triple?: { __typename?: 'triples'; term_id: string } | null
-          }
+          } | null
         } | null
       }>
     }>
@@ -13639,13 +14037,13 @@ export type GetAccountQuery = {
       emoji?: string | null
       type: any
       wallet_id: string
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         id: string
         label: string
         image?: string | null
-      }
-      term: {
+      } | null
+      term?: {
         __typename?: 'terms'
         vaults: Array<{
           __typename?: 'vaults'
@@ -13681,7 +14079,7 @@ export type GetAccountQuery = {
             count: number
           } | null
         }
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -13716,7 +14114,7 @@ export type GetAccountQuery = {
         term_id: string
         total_shares: any
         current_share_price: any
-        term: {
+        term?: {
           __typename?: 'terms'
           atom?: {
             __typename?: 'atoms'
@@ -13724,7 +14122,7 @@ export type GetAccountQuery = {
             label?: string | null
           } | null
           triple?: { __typename?: 'triples'; term_id: string } | null
-        }
+        } | null
       } | null
     }>
     atoms: Array<{
@@ -13732,7 +14130,7 @@ export type GetAccountQuery = {
       term_id: string
       label?: string | null
       data?: string | null
-      term: {
+      term?: {
         __typename?: 'terms'
         vaults: Array<{
           __typename?: 'vaults'
@@ -13746,7 +14144,7 @@ export type GetAccountQuery = {
             }>
           }
         }>
-      }
+      } | null
     }>
     triples_aggregate: {
       __typename?: 'triples_aggregate'
@@ -13757,17 +14155,21 @@ export type GetAccountQuery = {
       nodes: Array<{
         __typename?: 'triples'
         term_id: string
-        subject: {
+        subject?: {
           __typename?: 'atoms'
           term_id: string
           label?: string | null
-        }
-        predicate: {
+        } | null
+        predicate?: {
           __typename?: 'atoms'
           term_id: string
           label?: string | null
-        }
-        object: { __typename?: 'atoms'; term_id: string; label?: string | null }
+        } | null
+        object?: {
+          __typename?: 'atoms'
+          term_id: string
+          label?: string | null
+        } | null
       }>
     }
   } | null
@@ -13809,7 +14211,7 @@ export type GetAccountWithPaginatedRelationsQuery = {
         term_id: string
         total_shares: any
         current_share_price: any
-        term: {
+        term?: {
           __typename?: 'terms'
           atom?: {
             __typename?: 'atoms'
@@ -13817,7 +14219,7 @@ export type GetAccountWithPaginatedRelationsQuery = {
             label?: string | null
           } | null
           triple?: { __typename?: 'triples'; term_id: string } | null
-        }
+        } | null
       } | null
     }>
     atoms: Array<{
@@ -13825,7 +14227,7 @@ export type GetAccountWithPaginatedRelationsQuery = {
       term_id: string
       label?: string | null
       data?: string | null
-      term: {
+      term?: {
         __typename?: 'terms'
         vaults: Array<{
           __typename?: 'vaults'
@@ -13839,7 +14241,7 @@ export type GetAccountWithPaginatedRelationsQuery = {
             }>
           }
         }>
-      }
+      } | null
     }>
     triples_aggregate: {
       __typename?: 'triples_aggregate'
@@ -13850,17 +14252,21 @@ export type GetAccountWithPaginatedRelationsQuery = {
       nodes: Array<{
         __typename?: 'triples'
         term_id: string
-        subject: {
+        subject?: {
           __typename?: 'atoms'
           term_id: string
           label?: string | null
-        }
-        predicate: {
+        } | null
+        predicate?: {
           __typename?: 'atoms'
           term_id: string
           label?: string | null
-        }
-        object: { __typename?: 'atoms'; term_id: string; label?: string | null }
+        } | null
+        object?: {
+          __typename?: 'atoms'
+          term_id: string
+          label?: string | null
+        } | null
       }>
     }
   } | null
@@ -13907,7 +14313,7 @@ export type GetAccountWithAggregatesQuery = {
           term_id: string
           total_shares: any
           current_share_price: any
-          term: {
+          term?: {
             __typename?: 'terms'
             atom?: {
               __typename?: 'atoms'
@@ -13915,7 +14321,7 @@ export type GetAccountWithAggregatesQuery = {
               label?: string | null
             } | null
             triple?: { __typename?: 'triples'; term_id: string } | null
-          }
+          } | null
         } | null
       }>
     }
@@ -13934,7 +14340,7 @@ export type GetAccountWithAggregatesQuery = {
         term_id: string
         label?: string | null
         data?: string | null
-        term: {
+        term?: {
           __typename?: 'terms'
           vaults: Array<{
             __typename?: 'vaults'
@@ -13948,7 +14354,7 @@ export type GetAccountWithAggregatesQuery = {
               }>
             }
           }>
-        }
+        } | null
       }>
     }
     triples_aggregate: {
@@ -13960,17 +14366,21 @@ export type GetAccountWithAggregatesQuery = {
       nodes: Array<{
         __typename?: 'triples'
         term_id: string
-        subject: {
+        subject?: {
           __typename?: 'atoms'
           term_id: string
           label?: string | null
-        }
-        predicate: {
+        } | null
+        predicate?: {
           __typename?: 'atoms'
           term_id: string
           label?: string | null
-        }
-        object: { __typename?: 'atoms'; term_id: string; label?: string | null }
+        } | null
+        object?: {
+          __typename?: 'atoms'
+          term_id: string
+          label?: string | null
+        } | null
       }>
     }
   } | null
@@ -14002,15 +14412,15 @@ export type GetAtomsQuery = {
     created_at: any
     transaction_hash: string
     creator_id: string
-    creator: {
+    creator?: {
       __typename?: 'accounts'
       id: string
       label: string
       image?: string | null
       atom_id?: string | null
       type: any
-    }
-    term: {
+    } | null
+    term?: {
       __typename?: 'terms'
       vaults: Array<{
         __typename?: 'vaults'
@@ -14046,11 +14456,11 @@ export type GetAtomsQuery = {
           count: number
         } | null
       }
-    }
+    } | null
     as_subject_triples: Array<{
       __typename?: 'triples'
       term_id: string
-      object: {
+      object?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14058,16 +14468,16 @@ export type GetAtomsQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
-      predicate: {
+        } | null
+      } | null
+      predicate?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14075,20 +14485,20 @@ export type GetAtomsQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
+        } | null
+      } | null
     }>
     as_predicate_triples: Array<{
       __typename?: 'triples'
       term_id: string
-      subject: {
+      subject?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14096,16 +14506,16 @@ export type GetAtomsQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
-      object: {
+        } | null
+      } | null
+      object?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14113,20 +14523,20 @@ export type GetAtomsQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
+        } | null
+      } | null
     }>
     as_object_triples: Array<{
       __typename?: 'triples'
       term_id: string
-      subject: {
+      subject?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14134,16 +14544,16 @@ export type GetAtomsQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
-      predicate: {
+        } | null
+      } | null
+      predicate?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14151,15 +14561,15 @@ export type GetAtomsQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
+        } | null
+      } | null
     }>
     value?: {
       __typename?: 'atom_values'
@@ -14215,7 +14625,7 @@ export type GetAtomsWithPositionsQuery = {
     created_at: any
     transaction_hash: string
     creator_id: string
-    term: {
+    term?: {
       __typename?: 'terms'
       vaults: Array<{
         __typename?: 'vaults'
@@ -14244,25 +14654,29 @@ export type GetAtomsWithPositionsQuery = {
           } | null
         }>
       }>
-    }
-    creator: {
+    } | null
+    creator?: {
       __typename?: 'accounts'
       id: string
       label: string
       image?: string | null
       atom_id?: string | null
       type: any
-    }
+    } | null
     as_subject_triples_aggregate: {
       __typename?: 'triples_aggregate'
       nodes: Array<{
         __typename?: 'triples'
-        predicate: {
+        predicate?: {
           __typename?: 'atoms'
           label?: string | null
           term_id: string
-        }
-        object: { __typename?: 'atoms'; label?: string | null; term_id: string }
+        } | null
+        object?: {
+          __typename?: 'atoms'
+          label?: string | null
+          term_id: string
+        } | null
       }>
     }
     value?: {
@@ -14317,15 +14731,15 @@ export type GetAtomsWithAggregatesQuery = {
       created_at: any
       transaction_hash: string
       creator_id: string
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         id: string
         label: string
         image?: string | null
         atom_id?: string | null
         type: any
-      }
-      term: {
+      } | null
+      term?: {
         __typename?: 'terms'
         vaults: Array<{
           __typename?: 'vaults'
@@ -14361,7 +14775,7 @@ export type GetAtomsWithAggregatesQuery = {
             count: number
           } | null
         }
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -14421,15 +14835,15 @@ export type GetAtomQuery = {
     created_at: any
     transaction_hash: string
     creator_id: string
-    creator: {
+    creator?: {
       __typename?: 'accounts'
       id: string
       label: string
       image?: string | null
       atom_id?: string | null
       type: any
-    }
-    term: {
+    } | null
+    term?: {
       __typename?: 'terms'
       vaults: Array<{
         __typename?: 'vaults'
@@ -14465,11 +14879,11 @@ export type GetAtomQuery = {
           count: number
         } | null
       }
-    }
+    } | null
     as_subject_triples: Array<{
       __typename?: 'triples'
       term_id: string
-      object: {
+      object?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14477,16 +14891,16 @@ export type GetAtomQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
-      predicate: {
+        } | null
+      } | null
+      predicate?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14494,20 +14908,20 @@ export type GetAtomQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
+        } | null
+      } | null
     }>
     as_predicate_triples: Array<{
       __typename?: 'triples'
       term_id: string
-      subject: {
+      subject?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14515,16 +14929,16 @@ export type GetAtomQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
-      object: {
+        } | null
+      } | null
+      object?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14532,20 +14946,20 @@ export type GetAtomQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
+        } | null
+      } | null
     }>
     as_object_triples: Array<{
       __typename?: 'triples'
       term_id: string
-      subject: {
+      subject?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14553,16 +14967,16 @@ export type GetAtomQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
-      predicate: {
+        } | null
+      } | null
+      predicate?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14570,15 +14984,15 @@ export type GetAtomQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
+        } | null
+      } | null
     }>
     value?: {
       __typename?: 'atom_values'
@@ -14626,15 +15040,15 @@ export type GetAtomByDataQuery = {
     created_at: any
     transaction_hash: string
     creator_id: string
-    creator: {
+    creator?: {
       __typename?: 'accounts'
       id: string
       label: string
       image?: string | null
       atom_id?: string | null
       type: any
-    }
-    term: {
+    } | null
+    term?: {
       __typename?: 'terms'
       vaults: Array<{
         __typename?: 'vaults'
@@ -14670,11 +15084,11 @@ export type GetAtomByDataQuery = {
           count: number
         } | null
       }
-    }
+    } | null
     as_subject_triples: Array<{
       __typename?: 'triples'
       term_id: string
-      object: {
+      object?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14682,16 +15096,16 @@ export type GetAtomByDataQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
-      predicate: {
+        } | null
+      } | null
+      predicate?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14699,20 +15113,20 @@ export type GetAtomByDataQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
+        } | null
+      } | null
     }>
     as_predicate_triples: Array<{
       __typename?: 'triples'
       term_id: string
-      subject: {
+      subject?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14720,16 +15134,16 @@ export type GetAtomByDataQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
-      object: {
+        } | null
+      } | null
+      object?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14737,20 +15151,20 @@ export type GetAtomByDataQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
+        } | null
+      } | null
     }>
     as_object_triples: Array<{
       __typename?: 'triples'
       term_id: string
-      subject: {
+      subject?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14758,16 +15172,16 @@ export type GetAtomByDataQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
-      predicate: {
+        } | null
+      } | null
+      predicate?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -14775,15 +15189,15 @@ export type GetAtomByDataQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
-      }
+        } | null
+      } | null
     }>
     value?: {
       __typename?: 'atom_values'
@@ -14828,7 +15242,7 @@ export type GetVerifiedAtomDetailsQuery = {
     type: any
     created_at: any
     data?: string | null
-    creator: { __typename?: 'accounts'; id: string }
+    creator?: { __typename?: 'accounts'; id: string } | null
     value?: {
       __typename?: 'atom_values'
       thing?: {
@@ -14838,7 +15252,7 @@ export type GetVerifiedAtomDetailsQuery = {
         url?: string | null
       } | null
     } | null
-    term: {
+    term?: {
       __typename?: 'terms'
       vaults: Array<{
         __typename?: 'vaults'
@@ -14851,20 +15265,20 @@ export type GetVerifiedAtomDetailsQuery = {
           account_id: string
         }>
       }>
-    }
+    } | null
     tags: {
       __typename?: 'triples_aggregate'
       nodes: Array<{
         __typename?: 'triples'
         predicate_id: string
-        object: {
+        object?: {
           __typename?: 'atoms'
           label?: string | null
-          term: {
+          term?: {
             __typename?: 'terms'
             vaults: Array<{ __typename?: 'vaults'; term_id: string }>
-          }
-        }
+          } | null
+        } | null
       }>
       aggregate?: {
         __typename?: 'triples_aggregate_fields'
@@ -14913,7 +15327,7 @@ export type GetAtomDetailsQuery = {
     type: any
     created_at: any
     data?: string | null
-    creator: { __typename?: 'accounts'; id: string }
+    creator?: { __typename?: 'accounts'; id: string } | null
     value?: {
       __typename?: 'atom_values'
       thing?: {
@@ -14923,7 +15337,7 @@ export type GetAtomDetailsQuery = {
         url?: string | null
       } | null
     } | null
-    term: {
+    term?: {
       __typename?: 'terms'
       vaults: Array<{
         __typename?: 'vaults'
@@ -14936,20 +15350,20 @@ export type GetAtomDetailsQuery = {
           account_id: string
         }>
       }>
-    }
+    } | null
     tags: {
       __typename?: 'triples_aggregate'
       nodes: Array<{
         __typename?: 'triples'
         predicate_id: string
-        object: {
+        object?: {
           __typename?: 'atoms'
           label?: string | null
-          term: {
+          term?: {
             __typename?: 'terms'
             vaults: Array<{ __typename?: 'vaults'; term_id: string }>
-          }
-        }
+          } | null
+        } | null
       }>
       aggregate?: {
         __typename?: 'triples_aggregate_fields'
@@ -14986,21 +15400,25 @@ export type GetAtomsByCreatorQuery = {
         url?: string | null
       } | null
     } | null
-    term: {
+    term?: {
       __typename?: 'terms'
       total_market_cap?: any | null
       vaults: Array<{ __typename?: 'vaults'; position_count: number }>
-    }
+    } | null
     as_subject_triples_aggregate: {
       __typename?: 'triples_aggregate'
       nodes: Array<{
         __typename?: 'triples'
-        predicate: {
+        predicate?: {
           __typename?: 'atoms'
           label?: string | null
           term_id: string
-        }
-        object: { __typename?: 'atoms'; label?: string | null; term_id: string }
+        } | null
+        object?: {
+          __typename?: 'atoms'
+          label?: string | null
+          term_id: string
+        } | null
       }>
     }
   }>
@@ -15040,7 +15458,7 @@ export type GetEventsFeedQuery = {
       emoji?: string | null
       type: any
       wallet_id: string
-      term: {
+      term?: {
         __typename?: 'terms'
         vaults: Array<{
           __typename?: 'vaults'
@@ -15058,13 +15476,13 @@ export type GetEventsFeedQuery = {
             } | null
           }>
         }>
-      }
-      creator: {
+      } | null
+      creator?: {
         __typename?: 'accounts'
         id: string
         label: string
         image?: string | null
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -15102,7 +15520,7 @@ export type GetEventsFeedQuery = {
         atom_id?: string | null
         type: any
       } | null
-      subject: {
+      subject?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -15110,14 +15528,14 @@ export type GetEventsFeedQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
+        } | null
         value?: {
           __typename?: 'atom_values'
           person?: {
@@ -15142,8 +15560,8 @@ export type GetEventsFeedQuery = {
             url?: string | null
           } | null
         } | null
-      }
-      predicate: {
+      } | null
+      predicate?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -15151,14 +15569,14 @@ export type GetEventsFeedQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
+        } | null
         value?: {
           __typename?: 'atom_values'
           person?: {
@@ -15183,8 +15601,8 @@ export type GetEventsFeedQuery = {
             url?: string | null
           } | null
         } | null
-      }
-      object: {
+      } | null
+      object?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -15192,14 +15610,14 @@ export type GetEventsFeedQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
+        } | null
         value?: {
           __typename?: 'atom_values'
           person?: {
@@ -15224,7 +15642,7 @@ export type GetEventsFeedQuery = {
             url?: string | null
           } | null
         } | null
-      }
+      } | null
       term?: {
         __typename?: 'terms'
         positions_aggregate: {
@@ -15374,7 +15792,7 @@ export type GetEventsWithAggregatesQuery = {
         emoji?: string | null
         type: any
         wallet_id: string
-        term: {
+        term?: {
           __typename?: 'terms'
           positions_aggregate: {
             __typename?: 'positions_aggregate'
@@ -15399,13 +15817,13 @@ export type GetEventsWithAggregatesQuery = {
               } | null
             }>
           }>
-        }
-        creator: {
+        } | null
+        creator?: {
           __typename?: 'accounts'
           id: string
           label: string
           image?: string | null
-        }
+        } | null
         value?: {
           __typename?: 'atom_values'
           person?: {
@@ -15525,7 +15943,7 @@ export type GetEventsWithAggregatesQuery = {
             }
           }>
         } | null
-        subject: {
+        subject?: {
           __typename?: 'atoms'
           data?: string | null
           term_id: string
@@ -15533,14 +15951,14 @@ export type GetEventsWithAggregatesQuery = {
           label?: string | null
           emoji?: string | null
           type: any
-          creator: {
+          creator?: {
             __typename?: 'accounts'
             label: string
             image?: string | null
             id: string
             atom_id?: string | null
             type: any
-          }
+          } | null
           value?: {
             __typename?: 'atom_values'
             person?: {
@@ -15565,8 +15983,8 @@ export type GetEventsWithAggregatesQuery = {
               url?: string | null
             } | null
           } | null
-        }
-        predicate: {
+        } | null
+        predicate?: {
           __typename?: 'atoms'
           data?: string | null
           term_id: string
@@ -15574,14 +15992,14 @@ export type GetEventsWithAggregatesQuery = {
           label?: string | null
           emoji?: string | null
           type: any
-          creator: {
+          creator?: {
             __typename?: 'accounts'
             label: string
             image?: string | null
             id: string
             atom_id?: string | null
             type: any
-          }
+          } | null
           value?: {
             __typename?: 'atom_values'
             person?: {
@@ -15606,8 +16024,8 @@ export type GetEventsWithAggregatesQuery = {
               url?: string | null
             } | null
           } | null
-        }
-        object: {
+        } | null
+        object?: {
           __typename?: 'atoms'
           data?: string | null
           term_id: string
@@ -15615,14 +16033,14 @@ export type GetEventsWithAggregatesQuery = {
           label?: string | null
           emoji?: string | null
           type: any
-          creator: {
+          creator?: {
             __typename?: 'accounts'
             label: string
             image?: string | null
             id: string
             atom_id?: string | null
             type: any
-          }
+          } | null
           value?: {
             __typename?: 'atom_values'
             person?: {
@@ -15647,13 +16065,13 @@ export type GetEventsWithAggregatesQuery = {
               url?: string | null
             } | null
           } | null
-        }
+        } | null
       } | null
       deposit?: {
         __typename?: 'deposits'
         term_id: string
         curve_id: any
-        receiver: { __typename?: 'accounts'; id: string }
+        receiver?: { __typename?: 'accounts'; id: string } | null
         sender?: { __typename?: 'accounts'; id: string } | null
       } | null
       redemption?: {
@@ -15687,7 +16105,7 @@ export type GetFollowingPositionsQuery = {
   triples: Array<{
     __typename?: 'triples'
     term_id: string
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       term_id: string
       data?: string | null
@@ -15696,12 +16114,12 @@ export type GetFollowingPositionsQuery = {
       emoji?: string | null
       type: any
       wallet_id: string
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         id: string
         label: string
         image?: string | null
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -15726,8 +16144,8 @@ export type GetFollowingPositionsQuery = {
           url?: string | null
         } | null
       } | null
-    }
-    predicate: {
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       term_id: string
       data?: string | null
@@ -15736,12 +16154,12 @@ export type GetFollowingPositionsQuery = {
       emoji?: string | null
       type: any
       wallet_id: string
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         id: string
         label: string
         image?: string | null
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -15766,8 +16184,8 @@ export type GetFollowingPositionsQuery = {
           url?: string | null
         } | null
       } | null
-    }
-    object: {
+    } | null
+    object?: {
       __typename?: 'atoms'
       term_id: string
       data?: string | null
@@ -15776,12 +16194,12 @@ export type GetFollowingPositionsQuery = {
       emoji?: string | null
       type: any
       wallet_id: string
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         id: string
         label: string
         image?: string | null
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -15806,7 +16224,7 @@ export type GetFollowingPositionsQuery = {
           url?: string | null
         } | null
       } | null
-    }
+    } | null
     term?: {
       __typename?: 'terms'
       vaults: Array<{
@@ -15854,7 +16272,7 @@ export type GetFollowerPositionsQuery = {
   triples: Array<{
     __typename?: 'triples'
     term_id: string
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       term_id: string
       data?: string | null
@@ -15863,12 +16281,12 @@ export type GetFollowerPositionsQuery = {
       emoji?: string | null
       type: any
       wallet_id: string
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         id: string
         label: string
         image?: string | null
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -15893,8 +16311,8 @@ export type GetFollowerPositionsQuery = {
           url?: string | null
         } | null
       } | null
-    }
-    predicate: {
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       term_id: string
       data?: string | null
@@ -15903,12 +16321,12 @@ export type GetFollowerPositionsQuery = {
       emoji?: string | null
       type: any
       wallet_id: string
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         id: string
         label: string
         image?: string | null
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -15933,8 +16351,8 @@ export type GetFollowerPositionsQuery = {
           url?: string | null
         } | null
       } | null
-    }
-    object: {
+    } | null
+    object?: {
       __typename?: 'atoms'
       term_id: string
       data?: string | null
@@ -15943,12 +16361,12 @@ export type GetFollowerPositionsQuery = {
       emoji?: string | null
       type: any
       wallet_id: string
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         id: string
         label: string
         image?: string | null
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -15973,7 +16391,7 @@ export type GetFollowerPositionsQuery = {
           url?: string | null
         } | null
       } | null
-    }
+    } | null
     term?: {
       __typename?: 'terms'
       vaults: Array<{
@@ -16031,9 +16449,21 @@ export type GetConnectionsQuery = {
   following: Array<{
     __typename?: 'triples'
     term_id: string
-    subject: { __typename?: 'atoms'; term_id: string; label?: string | null }
-    predicate: { __typename?: 'atoms'; term_id: string; label?: string | null }
-    object: { __typename?: 'atoms'; term_id: string; label?: string | null }
+    subject?: {
+      __typename?: 'atoms'
+      term_id: string
+      label?: string | null
+    } | null
+    predicate?: {
+      __typename?: 'atoms'
+      term_id: string
+      label?: string | null
+    } | null
+    object?: {
+      __typename?: 'atoms'
+      term_id: string
+      label?: string | null
+    } | null
     term?: {
       __typename?: 'terms'
       vaults: Array<{
@@ -16074,9 +16504,21 @@ export type GetConnectionsQuery = {
   followers: Array<{
     __typename?: 'triples'
     term_id: string
-    subject: { __typename?: 'atoms'; term_id: string; label?: string | null }
-    predicate: { __typename?: 'atoms'; term_id: string; label?: string | null }
-    object: { __typename?: 'atoms'; term_id: string; label?: string | null }
+    subject?: {
+      __typename?: 'atoms'
+      term_id: string
+      label?: string | null
+    } | null
+    predicate?: {
+      __typename?: 'atoms'
+      term_id: string
+      label?: string | null
+    } | null
+    object?: {
+      __typename?: 'atoms'
+      term_id: string
+      label?: string | null
+    } | null
     term?: {
       __typename?: 'terms'
       vaults: Array<{
@@ -16169,27 +16611,27 @@ export type GetFollowingsFromAddressQuery = {
         id: string
         type: any
       } | null
-      subject: {
+      subject?: {
         __typename?: 'atoms'
         term_id: string
         label?: string | null
         image?: string | null
         type: any
-      }
-      predicate: {
+      } | null
+      predicate?: {
         __typename?: 'atoms'
         term_id: string
         label?: string | null
         image?: string | null
         type: any
-      }
-      object: {
+      } | null
+      object?: {
         __typename?: 'atoms'
         term_id: string
         label?: string | null
         image?: string | null
         type: any
-      }
+      } | null
       term?: {
         __typename?: 'terms'
         id: string
@@ -16232,33 +16674,33 @@ export type GetFollowingsFromAddressQuery = {
       nodes: Array<{
         __typename?: 'positions'
         shares: any
-        term: {
+        term?: {
           __typename?: 'terms'
           id: string
           triple?: {
             __typename?: 'triples'
             term_id: string
-            object: {
+            object?: {
               __typename?: 'atoms'
               term_id: string
               type: any
               image?: string | null
               label?: string | null
-            }
-            predicate: {
+            } | null
+            predicate?: {
               __typename?: 'atoms'
               term_id: string
               type: any
               image?: string | null
               label?: string | null
-            }
-            subject: {
+            } | null
+            subject?: {
               __typename?: 'atoms'
               term_id: string
               type: any
               image?: string | null
               label?: string | null
-            }
+            } | null
             counter_term?: {
               __typename?: 'terms'
               id: string
@@ -16292,7 +16734,7 @@ export type GetFollowingsFromAddressQuery = {
               }>
             } | null
           } | null
-        }
+        } | null
       }>
     }
   }>
@@ -16307,8 +16749,8 @@ export type GetFollowersFromAddressQuery = {
   triples: Array<{
     __typename?: 'triples'
     term_id: string
-    predicate: { __typename?: 'atoms'; label?: string | null }
-    object: { __typename?: 'atoms'; term_id: string }
+    predicate?: { __typename?: 'atoms'; label?: string | null } | null
+    object?: { __typename?: 'atoms'; term_id: string } | null
     term?: {
       __typename?: 'terms'
       id: string
@@ -16349,14 +16791,14 @@ export type GetFollowingsTriplesQuery = {
   triples: Array<{
     __typename?: 'triples'
     term_id: string
-    object: {
+    object?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
       type: any
       image?: string | null
       accounts: Array<{ __typename?: 'accounts'; id: string }>
-    }
+    } | null
   }>
 }
 
@@ -16428,7 +16870,7 @@ export type GetListItemsQuery = {
             vault?: {
               __typename?: 'vaults'
               term_id: string
-              term: {
+              term?: {
                 __typename?: 'terms'
                 atom?: {
                   __typename?: 'atoms'
@@ -16475,7 +16917,7 @@ export type GetListItemsQuery = {
                       }
                     }>
                   } | null
-                  subject: {
+                  subject?: {
                     __typename?: 'atoms'
                     data?: string | null
                     term_id: string
@@ -16483,14 +16925,14 @@ export type GetListItemsQuery = {
                     image?: string | null
                     emoji?: string | null
                     type: any
-                    creator: {
+                    creator?: {
                       __typename?: 'accounts'
                       label: string
                       image?: string | null
                       id: string
                       atom_id?: string | null
                       type: any
-                    }
+                    } | null
                     value?: {
                       __typename?: 'atom_values'
                       person?: {
@@ -16515,8 +16957,8 @@ export type GetListItemsQuery = {
                         url?: string | null
                       } | null
                     } | null
-                  }
-                  predicate: {
+                  } | null
+                  predicate?: {
                     __typename?: 'atoms'
                     data?: string | null
                     term_id: string
@@ -16524,14 +16966,14 @@ export type GetListItemsQuery = {
                     image?: string | null
                     emoji?: string | null
                     type: any
-                    creator: {
+                    creator?: {
                       __typename?: 'accounts'
                       label: string
                       image?: string | null
                       id: string
                       atom_id?: string | null
                       type: any
-                    }
+                    } | null
                     value?: {
                       __typename?: 'atom_values'
                       person?: {
@@ -16556,8 +16998,8 @@ export type GetListItemsQuery = {
                         url?: string | null
                       } | null
                     } | null
-                  }
-                  object: {
+                  } | null
+                  object?: {
                     __typename?: 'atoms'
                     data?: string | null
                     term_id: string
@@ -16565,14 +17007,14 @@ export type GetListItemsQuery = {
                     image?: string | null
                     emoji?: string | null
                     type: any
-                    creator: {
+                    creator?: {
                       __typename?: 'accounts'
                       label: string
                       image?: string | null
                       id: string
                       atom_id?: string | null
                       type: any
-                    }
+                    } | null
                     value?: {
                       __typename?: 'atom_values'
                       person?: {
@@ -16597,9 +17039,9 @@ export type GetListItemsQuery = {
                         url?: string | null
                       } | null
                     } | null
-                  }
+                  } | null
                 } | null
-              }
+              } | null
             } | null
           }>
         }>
@@ -16623,7 +17065,7 @@ export type GetListItemsQuery = {
             vault?: {
               __typename?: 'vaults'
               term_id: string
-              term: {
+              term?: {
                 __typename?: 'terms'
                 atom?: {
                   __typename?: 'atoms'
@@ -16670,7 +17112,7 @@ export type GetListItemsQuery = {
                       }
                     }>
                   } | null
-                  subject: {
+                  subject?: {
                     __typename?: 'atoms'
                     data?: string | null
                     term_id: string
@@ -16678,14 +17120,14 @@ export type GetListItemsQuery = {
                     image?: string | null
                     emoji?: string | null
                     type: any
-                    creator: {
+                    creator?: {
                       __typename?: 'accounts'
                       label: string
                       image?: string | null
                       id: string
                       atom_id?: string | null
                       type: any
-                    }
+                    } | null
                     value?: {
                       __typename?: 'atom_values'
                       person?: {
@@ -16710,8 +17152,8 @@ export type GetListItemsQuery = {
                         url?: string | null
                       } | null
                     } | null
-                  }
-                  predicate: {
+                  } | null
+                  predicate?: {
                     __typename?: 'atoms'
                     data?: string | null
                     term_id: string
@@ -16719,14 +17161,14 @@ export type GetListItemsQuery = {
                     image?: string | null
                     emoji?: string | null
                     type: any
-                    creator: {
+                    creator?: {
                       __typename?: 'accounts'
                       label: string
                       image?: string | null
                       id: string
                       atom_id?: string | null
                       type: any
-                    }
+                    } | null
                     value?: {
                       __typename?: 'atom_values'
                       person?: {
@@ -16751,8 +17193,8 @@ export type GetListItemsQuery = {
                         url?: string | null
                       } | null
                     } | null
-                  }
-                  object: {
+                  } | null
+                  object?: {
                     __typename?: 'atoms'
                     data?: string | null
                     term_id: string
@@ -16760,14 +17202,14 @@ export type GetListItemsQuery = {
                     image?: string | null
                     emoji?: string | null
                     type: any
-                    creator: {
+                    creator?: {
                       __typename?: 'accounts'
                       label: string
                       image?: string | null
                       id: string
                       atom_id?: string | null
                       type: any
-                    }
+                    } | null
                     value?: {
                       __typename?: 'atom_values'
                       person?: {
@@ -16792,9 +17234,9 @@ export type GetListItemsQuery = {
                         url?: string | null
                       } | null
                     } | null
-                  }
+                  } | null
                 } | null
-              }
+              } | null
             } | null
           }>
         }>
@@ -16824,7 +17266,7 @@ export type GetListDetailsQuery = {
     __typename?: 'triples'
     term_id: string
     counter_term_id: string
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
@@ -16835,7 +17277,7 @@ export type GetListDetailsQuery = {
         __typename?: 'triples_aggregate'
         nodes: Array<{
           __typename?: 'triples'
-          object: {
+          object?: {
             __typename?: 'atoms'
             label?: string | null
             term_id: string
@@ -16844,41 +17286,41 @@ export type GetListDetailsQuery = {
               nodes: Array<{
                 __typename?: 'triples'
                 term_id: string
-                subject: {
+                subject?: {
                   __typename?: 'atoms'
                   label?: string | null
                   term_id: string
-                }
+                } | null
               }>
               aggregate?: {
                 __typename?: 'triples_aggregate_fields'
                 count: number
               } | null
             }
-          }
+          } | null
         }>
         aggregate?: {
           __typename?: 'triples_aggregate_fields'
           count: number
         } | null
       }
-    }
-    object: {
+    } | null
+    object?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
       wallet_id: string
       image?: string | null
       type: any
-    }
-    predicate: {
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
       wallet_id: string
       image?: string | null
       type: any
-    }
+    } | null
     term?: {
       __typename?: 'terms'
       vaults: Array<{
@@ -16922,7 +17364,7 @@ export type GetListDetailsWithPositionQuery = {
     __typename?: 'triples'
     term_id: string
     counter_term_id: string
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
@@ -16933,7 +17375,7 @@ export type GetListDetailsWithPositionQuery = {
         __typename?: 'triples_aggregate'
         nodes: Array<{
           __typename?: 'triples'
-          object: {
+          object?: {
             __typename?: 'atoms'
             label?: string | null
             term_id: string
@@ -16942,41 +17384,41 @@ export type GetListDetailsWithPositionQuery = {
               nodes: Array<{
                 __typename?: 'triples'
                 term_id: string
-                subject: {
+                subject?: {
                   __typename?: 'atoms'
                   label?: string | null
                   term_id: string
-                }
+                } | null
               }>
               aggregate?: {
                 __typename?: 'triples_aggregate_fields'
                 count: number
               } | null
             }
-          }
+          } | null
         }>
         aggregate?: {
           __typename?: 'triples_aggregate_fields'
           count: number
         } | null
       }
-    }
-    object: {
+    } | null
+    object?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
       wallet_id: string
       image?: string | null
       type: any
-    }
-    predicate: {
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
       wallet_id: string
       image?: string | null
       type: any
-    }
+    } | null
     term?: {
       __typename?: 'terms'
       vaults: Array<{
@@ -17041,7 +17483,7 @@ export type GetListDetailsWithUserQuery = {
     __typename?: 'triples'
     term_id: string
     counter_term_id: string
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
@@ -17052,7 +17494,7 @@ export type GetListDetailsWithUserQuery = {
         __typename?: 'triples_aggregate'
         nodes: Array<{
           __typename?: 'triples'
-          object: {
+          object?: {
             __typename?: 'atoms'
             label?: string | null
             term_id: string
@@ -17061,41 +17503,41 @@ export type GetListDetailsWithUserQuery = {
               nodes: Array<{
                 __typename?: 'triples'
                 term_id: string
-                subject: {
+                subject?: {
                   __typename?: 'atoms'
                   label?: string | null
                   term_id: string
-                }
+                } | null
               }>
               aggregate?: {
                 __typename?: 'triples_aggregate_fields'
                 count: number
               } | null
             }
-          }
+          } | null
         }>
         aggregate?: {
           __typename?: 'triples_aggregate_fields'
           count: number
         } | null
       }
-    }
-    object: {
+    } | null
+    object?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
       wallet_id: string
       image?: string | null
       type: any
-    }
-    predicate: {
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
       wallet_id: string
       image?: string | null
       type: any
-    }
+    } | null
     term?: {
       __typename?: 'terms'
       vaults: Array<{
@@ -17146,7 +17588,7 @@ export type GetListDetailsWithUserQuery = {
     __typename?: 'triples'
     term_id: string
     counter_term_id: string
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
@@ -17157,7 +17599,7 @@ export type GetListDetailsWithUserQuery = {
         __typename?: 'triples_aggregate'
         nodes: Array<{
           __typename?: 'triples'
-          object: {
+          object?: {
             __typename?: 'atoms'
             label?: string | null
             term_id: string
@@ -17166,41 +17608,41 @@ export type GetListDetailsWithUserQuery = {
               nodes: Array<{
                 __typename?: 'triples'
                 term_id: string
-                subject: {
+                subject?: {
                   __typename?: 'atoms'
                   label?: string | null
                   term_id: string
-                }
+                } | null
               }>
               aggregate?: {
                 __typename?: 'triples_aggregate_fields'
                 count: number
               } | null
             }
-          }
+          } | null
         }>
         aggregate?: {
           __typename?: 'triples_aggregate_fields'
           count: number
         } | null
       }
-    }
-    object: {
+    } | null
+    object?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
       wallet_id: string
       image?: string | null
       type: any
-    }
-    predicate: {
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
       wallet_id: string
       image?: string | null
       type: any
-    }
+    } | null
     term?: {
       __typename?: 'terms'
       vaults: Array<{
@@ -17303,7 +17745,7 @@ export type GetPositionsQuery = {
     vault?: {
       __typename?: 'vaults'
       term_id: string
-      term: {
+      term?: {
         __typename?: 'terms'
         atom?: {
           __typename?: 'atoms'
@@ -17350,7 +17792,7 @@ export type GetPositionsQuery = {
               }
             }>
           } | null
-          subject: {
+          subject?: {
             __typename?: 'atoms'
             data?: string | null
             term_id: string
@@ -17358,14 +17800,14 @@ export type GetPositionsQuery = {
             image?: string | null
             emoji?: string | null
             type: any
-            creator: {
+            creator?: {
               __typename?: 'accounts'
               label: string
               image?: string | null
               id: string
               atom_id?: string | null
               type: any
-            }
+            } | null
             value?: {
               __typename?: 'atom_values'
               person?: {
@@ -17390,8 +17832,8 @@ export type GetPositionsQuery = {
                 url?: string | null
               } | null
             } | null
-          }
-          predicate: {
+          } | null
+          predicate?: {
             __typename?: 'atoms'
             data?: string | null
             term_id: string
@@ -17399,14 +17841,14 @@ export type GetPositionsQuery = {
             image?: string | null
             emoji?: string | null
             type: any
-            creator: {
+            creator?: {
               __typename?: 'accounts'
               label: string
               image?: string | null
               id: string
               atom_id?: string | null
               type: any
-            }
+            } | null
             value?: {
               __typename?: 'atom_values'
               person?: {
@@ -17431,8 +17873,8 @@ export type GetPositionsQuery = {
                 url?: string | null
               } | null
             } | null
-          }
-          object: {
+          } | null
+          object?: {
             __typename?: 'atoms'
             data?: string | null
             term_id: string
@@ -17440,14 +17882,14 @@ export type GetPositionsQuery = {
             image?: string | null
             emoji?: string | null
             type: any
-            creator: {
+            creator?: {
               __typename?: 'accounts'
               label: string
               image?: string | null
               id: string
               atom_id?: string | null
               type: any
-            }
+            } | null
             value?: {
               __typename?: 'atom_values'
               person?: {
@@ -17472,9 +17914,9 @@ export type GetPositionsQuery = {
                 url?: string | null
               } | null
             } | null
-          }
+          } | null
         } | null
-      }
+      } | null
     } | null
   }>
 }
@@ -17506,7 +17948,7 @@ export type GetTriplePositionsByAddressQuery = {
     vault?: {
       __typename?: 'vaults'
       term_id: string
-      term: {
+      term?: {
         __typename?: 'terms'
         triple?: {
           __typename?: 'triples'
@@ -17567,7 +18009,7 @@ export type GetTriplePositionsByAddressQuery = {
               }
             }>
           } | null
-          subject: {
+          subject?: {
             __typename?: 'atoms'
             data?: string | null
             term_id: string
@@ -17575,14 +18017,14 @@ export type GetTriplePositionsByAddressQuery = {
             image?: string | null
             emoji?: string | null
             type: any
-            creator: {
+            creator?: {
               __typename?: 'accounts'
               label: string
               image?: string | null
               id: string
               atom_id?: string | null
               type: any
-            }
+            } | null
             value?: {
               __typename?: 'atom_values'
               person?: {
@@ -17607,8 +18049,8 @@ export type GetTriplePositionsByAddressQuery = {
                 url?: string | null
               } | null
             } | null
-          }
-          predicate: {
+          } | null
+          predicate?: {
             __typename?: 'atoms'
             data?: string | null
             term_id: string
@@ -17616,14 +18058,14 @@ export type GetTriplePositionsByAddressQuery = {
             image?: string | null
             emoji?: string | null
             type: any
-            creator: {
+            creator?: {
               __typename?: 'accounts'
               label: string
               image?: string | null
               id: string
               atom_id?: string | null
               type: any
-            }
+            } | null
             value?: {
               __typename?: 'atom_values'
               person?: {
@@ -17648,8 +18090,8 @@ export type GetTriplePositionsByAddressQuery = {
                 url?: string | null
               } | null
             } | null
-          }
-          object: {
+          } | null
+          object?: {
             __typename?: 'atoms'
             data?: string | null
             term_id: string
@@ -17657,14 +18099,14 @@ export type GetTriplePositionsByAddressQuery = {
             image?: string | null
             emoji?: string | null
             type: any
-            creator: {
+            creator?: {
               __typename?: 'accounts'
               label: string
               image?: string | null
               id: string
               atom_id?: string | null
               type: any
-            }
+            } | null
             value?: {
               __typename?: 'atom_values'
               person?: {
@@ -17689,7 +18131,7 @@ export type GetTriplePositionsByAddressQuery = {
                 url?: string | null
               } | null
             } | null
-          }
+          } | null
         } | null
         atom?: {
           __typename?: 'atoms'
@@ -17697,7 +18139,7 @@ export type GetTriplePositionsByAddressQuery = {
           label?: string | null
           image?: string | null
         } | null
-      }
+      } | null
     } | null
     account?: {
       __typename?: 'accounts'
@@ -17738,7 +18180,7 @@ export type GetPositionsWithAggregatesQuery = {
       vault?: {
         __typename?: 'vaults'
         term_id: string
-        term: {
+        term?: {
           __typename?: 'terms'
           atom?: {
             __typename?: 'atoms'
@@ -17785,7 +18227,7 @@ export type GetPositionsWithAggregatesQuery = {
                 }
               }>
             } | null
-            subject: {
+            subject?: {
               __typename?: 'atoms'
               data?: string | null
               term_id: string
@@ -17793,14 +18235,14 @@ export type GetPositionsWithAggregatesQuery = {
               image?: string | null
               emoji?: string | null
               type: any
-              creator: {
+              creator?: {
                 __typename?: 'accounts'
                 label: string
                 image?: string | null
                 id: string
                 atom_id?: string | null
                 type: any
-              }
+              } | null
               value?: {
                 __typename?: 'atom_values'
                 person?: {
@@ -17825,8 +18267,8 @@ export type GetPositionsWithAggregatesQuery = {
                   url?: string | null
                 } | null
               } | null
-            }
-            predicate: {
+            } | null
+            predicate?: {
               __typename?: 'atoms'
               data?: string | null
               term_id: string
@@ -17834,14 +18276,14 @@ export type GetPositionsWithAggregatesQuery = {
               image?: string | null
               emoji?: string | null
               type: any
-              creator: {
+              creator?: {
                 __typename?: 'accounts'
                 label: string
                 image?: string | null
                 id: string
                 atom_id?: string | null
                 type: any
-              }
+              } | null
               value?: {
                 __typename?: 'atom_values'
                 person?: {
@@ -17866,8 +18308,8 @@ export type GetPositionsWithAggregatesQuery = {
                   url?: string | null
                 } | null
               } | null
-            }
-            object: {
+            } | null
+            object?: {
               __typename?: 'atoms'
               data?: string | null
               term_id: string
@@ -17875,14 +18317,14 @@ export type GetPositionsWithAggregatesQuery = {
               image?: string | null
               emoji?: string | null
               type: any
-              creator: {
+              creator?: {
                 __typename?: 'accounts'
                 label: string
                 image?: string | null
                 id: string
                 atom_id?: string | null
                 type: any
-              }
+              } | null
               value?: {
                 __typename?: 'atom_values'
                 person?: {
@@ -17907,9 +18349,9 @@ export type GetPositionsWithAggregatesQuery = {
                   url?: string | null
                 } | null
               } | null
-            }
+            } | null
           } | null
-        }
+        } | null
       } | null
     }>
   }
@@ -17952,7 +18394,7 @@ export type GetPositionQuery = {
     vault?: {
       __typename?: 'vaults'
       term_id: string
-      term: {
+      term?: {
         __typename?: 'terms'
         atom?: {
           __typename?: 'atoms'
@@ -17999,7 +18441,7 @@ export type GetPositionQuery = {
               }
             }>
           } | null
-          subject: {
+          subject?: {
             __typename?: 'atoms'
             data?: string | null
             term_id: string
@@ -18007,14 +18449,14 @@ export type GetPositionQuery = {
             image?: string | null
             emoji?: string | null
             type: any
-            creator: {
+            creator?: {
               __typename?: 'accounts'
               label: string
               image?: string | null
               id: string
               atom_id?: string | null
               type: any
-            }
+            } | null
             value?: {
               __typename?: 'atom_values'
               person?: {
@@ -18039,8 +18481,8 @@ export type GetPositionQuery = {
                 url?: string | null
               } | null
             } | null
-          }
-          predicate: {
+          } | null
+          predicate?: {
             __typename?: 'atoms'
             data?: string | null
             term_id: string
@@ -18048,14 +18490,14 @@ export type GetPositionQuery = {
             image?: string | null
             emoji?: string | null
             type: any
-            creator: {
+            creator?: {
               __typename?: 'accounts'
               label: string
               image?: string | null
               id: string
               atom_id?: string | null
               type: any
-            }
+            } | null
             value?: {
               __typename?: 'atom_values'
               person?: {
@@ -18080,8 +18522,8 @@ export type GetPositionQuery = {
                 url?: string | null
               } | null
             } | null
-          }
-          object: {
+          } | null
+          object?: {
             __typename?: 'atoms'
             data?: string | null
             term_id: string
@@ -18089,14 +18531,14 @@ export type GetPositionQuery = {
             image?: string | null
             emoji?: string | null
             type: any
-            creator: {
+            creator?: {
               __typename?: 'accounts'
               label: string
               image?: string | null
               id: string
               atom_id?: string | null
               type: any
-            }
+            } | null
             value?: {
               __typename?: 'atom_values'
               person?: {
@@ -18121,9 +18563,9 @@ export type GetPositionQuery = {
                 url?: string | null
               } | null
             } | null
-          }
+          } | null
         } | null
-      }
+      } | null
     } | null
   } | null
 }
@@ -18173,7 +18615,7 @@ export type GetSignalsQuery = {
     triple_id?: string | null
     deposit_id?: string | null
     redemption_id?: string | null
-    term: {
+    term?: {
       __typename?: 'terms'
       atom?: {
         __typename?: 'atoms'
@@ -18184,7 +18626,7 @@ export type GetSignalsQuery = {
         emoji?: string | null
         type: any
         wallet_id: string
-        term: {
+        term?: {
           __typename?: 'terms'
           vaults: Array<{
             __typename?: 'vaults'
@@ -18202,13 +18644,13 @@ export type GetSignalsQuery = {
               } | null
             }>
           }>
-        }
-        creator: {
+        } | null
+        creator?: {
           __typename?: 'accounts'
           id: string
           label: string
           image?: string | null
-        }
+        } | null
         value?: {
           __typename?: 'atom_values'
           person?: {
@@ -18245,7 +18687,7 @@ export type GetSignalsQuery = {
           atom_id?: string | null
           type: any
         } | null
-        subject: {
+        subject?: {
           __typename?: 'atoms'
           data?: string | null
           term_id: string
@@ -18253,14 +18695,14 @@ export type GetSignalsQuery = {
           label?: string | null
           emoji?: string | null
           type: any
-          creator: {
+          creator?: {
             __typename?: 'accounts'
             label: string
             image?: string | null
             id: string
             atom_id?: string | null
             type: any
-          }
+          } | null
           value?: {
             __typename?: 'atom_values'
             person?: {
@@ -18285,8 +18727,8 @@ export type GetSignalsQuery = {
               url?: string | null
             } | null
           } | null
-        }
-        predicate: {
+        } | null
+        predicate?: {
           __typename?: 'atoms'
           data?: string | null
           term_id: string
@@ -18294,14 +18736,14 @@ export type GetSignalsQuery = {
           label?: string | null
           emoji?: string | null
           type: any
-          creator: {
+          creator?: {
             __typename?: 'accounts'
             label: string
             image?: string | null
             id: string
             atom_id?: string | null
             type: any
-          }
+          } | null
           value?: {
             __typename?: 'atom_values'
             person?: {
@@ -18326,8 +18768,8 @@ export type GetSignalsQuery = {
               url?: string | null
             } | null
           } | null
-        }
-        object: {
+        } | null
+        object?: {
           __typename?: 'atoms'
           data?: string | null
           term_id: string
@@ -18335,14 +18777,14 @@ export type GetSignalsQuery = {
           label?: string | null
           emoji?: string | null
           type: any
-          creator: {
+          creator?: {
             __typename?: 'accounts'
             label: string
             image?: string | null
             id: string
             atom_id?: string | null
             type: any
-          }
+          } | null
           value?: {
             __typename?: 'atom_values'
             person?: {
@@ -18367,7 +18809,7 @@ export type GetSignalsQuery = {
               url?: string | null
             } | null
           } | null
-        }
+        } | null
         term?: {
           __typename?: 'terms'
           vaults: Array<{
@@ -18407,7 +18849,7 @@ export type GetSignalsQuery = {
           }>
         } | null
       } | null
-    }
+    } | null
     deposit?: {
       __typename?: 'deposits'
       sender_id: string
@@ -18418,12 +18860,12 @@ export type GetSignalsQuery = {
         label: string
         image?: string | null
       } | null
-      receiver: {
+      receiver?: {
         __typename?: 'accounts'
         id: string
         label: string
         image?: string | null
-      }
+      } | null
       vault?: {
         __typename?: 'vaults'
         total_shares: any
@@ -18451,12 +18893,12 @@ export type GetSignalsQuery = {
         label: string
         image?: string | null
       } | null
-      receiver: {
+      receiver?: {
         __typename?: 'accounts'
         id: string
         label: string
         image?: string | null
-      }
+      } | null
     } | null
   }>
 }
@@ -18470,12 +18912,12 @@ export type AtomMetadataMaybedeletethisFragment = {
   emoji?: string | null
   type: any
   wallet_id: string
-  creator: {
+  creator?: {
     __typename?: 'accounts'
     id: string
     label: string
     image?: string | null
-  }
+  } | null
   value?: {
     __typename?: 'atom_values'
     person?: {
@@ -18531,7 +18973,7 @@ export type GetTagsQuery = {
     subject_id: string
     predicate_id: string
     object_id: string
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -18539,14 +18981,14 @@ export type GetTagsQuery = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -18571,8 +19013,8 @@ export type GetTagsQuery = {
           url?: string | null
         } | null
       } | null
-    }
-    predicate: {
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -18580,14 +19022,14 @@ export type GetTagsQuery = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -18612,8 +19054,8 @@ export type GetTagsQuery = {
           url?: string | null
         } | null
       } | null
-    }
-    object: {
+    } | null
+    object?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -18621,14 +19063,14 @@ export type GetTagsQuery = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -18653,7 +19095,7 @@ export type GetTagsQuery = {
           url?: string | null
         } | null
       } | null
-    }
+    } | null
     term?: {
       __typename?: 'terms'
       vaults: Array<{
@@ -18739,7 +19181,7 @@ export type GetTagsCustomQuery = {
     subject_id: string
     predicate_id: string
     object_id: string
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -18747,14 +19189,14 @@ export type GetTagsCustomQuery = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -18779,8 +19221,8 @@ export type GetTagsCustomQuery = {
           url?: string | null
         } | null
       } | null
-    }
-    predicate: {
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -18788,14 +19230,14 @@ export type GetTagsCustomQuery = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -18820,8 +19262,8 @@ export type GetTagsCustomQuery = {
           url?: string | null
         } | null
       } | null
-    }
-    object: {
+    } | null
+    object?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -18829,14 +19271,14 @@ export type GetTagsCustomQuery = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -18861,7 +19303,7 @@ export type GetTagsCustomQuery = {
           url?: string | null
         } | null
       } | null
-    }
+    } | null
     term?: {
       __typename?: 'terms'
       vaults: Array<{
@@ -18967,11 +19409,11 @@ export type GetListsTagsQuery = {
     }
     as_object_triples: Array<{
       __typename?: 'triples'
-      subject: {
+      subject?: {
         __typename?: 'atoms'
         label?: string | null
         image?: string | null
-      }
+      } | null
     }>
   }>
 }
@@ -18987,7 +19429,7 @@ export type GetTaggedObjectsQuery = {
   triples: Array<{
     __typename?: 'triples'
     term_id: string
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
@@ -19002,11 +19444,11 @@ export type GetTaggedObjectsQuery = {
         } | null
         person?: { __typename?: 'persons'; description?: string | null } | null
       } | null
-      term: {
+      term?: {
         __typename?: 'terms'
         vaults: Array<{ __typename?: 'vaults'; position_count: number }>
-      }
-    }
+      } | null
+    } | null
     term?: {
       __typename?: 'terms'
       id: string
@@ -19047,27 +19489,27 @@ export type GetTriplesByCreatorQuery = {
     term_id: string
     counter_term_id: string
     creator_id: string
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
       image?: string | null
       type: any
-    }
-    predicate: {
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
       image?: string | null
       type: any
-    }
-    object: {
+    } | null
+    object?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
       image?: string | null
       type: any
-    }
+    } | null
     term?: {
       __typename?: 'terms'
       positions_aggregate: {
@@ -19128,7 +19570,7 @@ export type GetTriplesQuery = {
       atom_id?: string | null
       type: any
     } | null
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -19136,14 +19578,14 @@ export type GetTriplesQuery = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -19168,8 +19610,8 @@ export type GetTriplesQuery = {
           url?: string | null
         } | null
       } | null
-    }
-    predicate: {
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -19177,14 +19619,14 @@ export type GetTriplesQuery = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -19209,8 +19651,8 @@ export type GetTriplesQuery = {
           url?: string | null
         } | null
       } | null
-    }
-    object: {
+    } | null
+    object?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -19218,14 +19660,14 @@ export type GetTriplesQuery = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -19250,7 +19692,7 @@ export type GetTriplesQuery = {
           url?: string | null
         } | null
       } | null
-    }
+    } | null
     term?: {
       __typename?: 'terms'
       vaults: Array<{
@@ -19286,7 +19728,7 @@ export type GetTriplesQuery = {
             term_id: string
             total_shares: any
             current_share_price: any
-            term: {
+            term?: {
               __typename?: 'terms'
               atom?: {
                 __typename?: 'atoms'
@@ -19333,7 +19775,7 @@ export type GetTriplesQuery = {
                     }
                   }>
                 } | null
-                subject: {
+                subject?: {
                   __typename?: 'atoms'
                   data?: string | null
                   term_id: string
@@ -19341,14 +19783,14 @@ export type GetTriplesQuery = {
                   image?: string | null
                   emoji?: string | null
                   type: any
-                  creator: {
+                  creator?: {
                     __typename?: 'accounts'
                     label: string
                     image?: string | null
                     id: string
                     atom_id?: string | null
                     type: any
-                  }
+                  } | null
                   value?: {
                     __typename?: 'atom_values'
                     person?: {
@@ -19373,8 +19815,8 @@ export type GetTriplesQuery = {
                       url?: string | null
                     } | null
                   } | null
-                }
-                predicate: {
+                } | null
+                predicate?: {
                   __typename?: 'atoms'
                   data?: string | null
                   term_id: string
@@ -19382,14 +19824,14 @@ export type GetTriplesQuery = {
                   image?: string | null
                   emoji?: string | null
                   type: any
-                  creator: {
+                  creator?: {
                     __typename?: 'accounts'
                     label: string
                     image?: string | null
                     id: string
                     atom_id?: string | null
                     type: any
-                  }
+                  } | null
                   value?: {
                     __typename?: 'atom_values'
                     person?: {
@@ -19414,8 +19856,8 @@ export type GetTriplesQuery = {
                       url?: string | null
                     } | null
                   } | null
-                }
-                object: {
+                } | null
+                object?: {
                   __typename?: 'atoms'
                   data?: string | null
                   term_id: string
@@ -19423,14 +19865,14 @@ export type GetTriplesQuery = {
                   image?: string | null
                   emoji?: string | null
                   type: any
-                  creator: {
+                  creator?: {
                     __typename?: 'accounts'
                     label: string
                     image?: string | null
                     id: string
                     atom_id?: string | null
                     type: any
-                  }
+                  } | null
                   value?: {
                     __typename?: 'atom_values'
                     person?: {
@@ -19455,9 +19897,9 @@ export type GetTriplesQuery = {
                       url?: string | null
                     } | null
                   } | null
-                }
+                } | null
               } | null
-            }
+            } | null
           } | null
         }>
       }>
@@ -19497,7 +19939,7 @@ export type GetTriplesQuery = {
             term_id: string
             total_shares: any
             current_share_price: any
-            term: {
+            term?: {
               __typename?: 'terms'
               atom?: {
                 __typename?: 'atoms'
@@ -19544,7 +19986,7 @@ export type GetTriplesQuery = {
                     }
                   }>
                 } | null
-                subject: {
+                subject?: {
                   __typename?: 'atoms'
                   data?: string | null
                   term_id: string
@@ -19552,14 +19994,14 @@ export type GetTriplesQuery = {
                   image?: string | null
                   emoji?: string | null
                   type: any
-                  creator: {
+                  creator?: {
                     __typename?: 'accounts'
                     label: string
                     image?: string | null
                     id: string
                     atom_id?: string | null
                     type: any
-                  }
+                  } | null
                   value?: {
                     __typename?: 'atom_values'
                     person?: {
@@ -19584,8 +20026,8 @@ export type GetTriplesQuery = {
                       url?: string | null
                     } | null
                   } | null
-                }
-                predicate: {
+                } | null
+                predicate?: {
                   __typename?: 'atoms'
                   data?: string | null
                   term_id: string
@@ -19593,14 +20035,14 @@ export type GetTriplesQuery = {
                   image?: string | null
                   emoji?: string | null
                   type: any
-                  creator: {
+                  creator?: {
                     __typename?: 'accounts'
                     label: string
                     image?: string | null
                     id: string
                     atom_id?: string | null
                     type: any
-                  }
+                  } | null
                   value?: {
                     __typename?: 'atom_values'
                     person?: {
@@ -19625,8 +20067,8 @@ export type GetTriplesQuery = {
                       url?: string | null
                     } | null
                   } | null
-                }
-                object: {
+                } | null
+                object?: {
                   __typename?: 'atoms'
                   data?: string | null
                   term_id: string
@@ -19634,14 +20076,14 @@ export type GetTriplesQuery = {
                   image?: string | null
                   emoji?: string | null
                   type: any
-                  creator: {
+                  creator?: {
                     __typename?: 'accounts'
                     label: string
                     image?: string | null
                     id: string
                     atom_id?: string | null
                     type: any
-                  }
+                  } | null
                   value?: {
                     __typename?: 'atom_values'
                     person?: {
@@ -19666,9 +20108,9 @@ export type GetTriplesQuery = {
                       url?: string | null
                     } | null
                   } | null
-                }
+                } | null
               } | null
-            }
+            } | null
           } | null
         }>
       }>
@@ -19710,7 +20152,7 @@ export type GetTriplesWithAggregatesQuery = {
         atom_id?: string | null
         type: any
       } | null
-      subject: {
+      subject?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -19718,14 +20160,14 @@ export type GetTriplesWithAggregatesQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
+        } | null
         value?: {
           __typename?: 'atom_values'
           person?: {
@@ -19750,8 +20192,8 @@ export type GetTriplesWithAggregatesQuery = {
             url?: string | null
           } | null
         } | null
-      }
-      predicate: {
+      } | null
+      predicate?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -19759,14 +20201,14 @@ export type GetTriplesWithAggregatesQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
+        } | null
         value?: {
           __typename?: 'atom_values'
           person?: {
@@ -19791,8 +20233,8 @@ export type GetTriplesWithAggregatesQuery = {
             url?: string | null
           } | null
         } | null
-      }
-      object: {
+      } | null
+      object?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -19800,14 +20242,14 @@ export type GetTriplesWithAggregatesQuery = {
         label?: string | null
         emoji?: string | null
         type: any
-        creator: {
+        creator?: {
           __typename?: 'accounts'
           label: string
           image?: string | null
           id: string
           atom_id?: string | null
           type: any
-        }
+        } | null
         value?: {
           __typename?: 'atom_values'
           person?: {
@@ -19832,7 +20274,7 @@ export type GetTriplesWithAggregatesQuery = {
             url?: string | null
           } | null
         } | null
-      }
+      } | null
       term?: {
         __typename?: 'terms'
         vaults: Array<{
@@ -19868,7 +20310,7 @@ export type GetTriplesWithAggregatesQuery = {
               term_id: string
               total_shares: any
               current_share_price: any
-              term: {
+              term?: {
                 __typename?: 'terms'
                 atom?: {
                   __typename?: 'atoms'
@@ -19915,7 +20357,7 @@ export type GetTriplesWithAggregatesQuery = {
                       }
                     }>
                   } | null
-                  subject: {
+                  subject?: {
                     __typename?: 'atoms'
                     data?: string | null
                     term_id: string
@@ -19923,14 +20365,14 @@ export type GetTriplesWithAggregatesQuery = {
                     image?: string | null
                     emoji?: string | null
                     type: any
-                    creator: {
+                    creator?: {
                       __typename?: 'accounts'
                       label: string
                       image?: string | null
                       id: string
                       atom_id?: string | null
                       type: any
-                    }
+                    } | null
                     value?: {
                       __typename?: 'atom_values'
                       person?: {
@@ -19955,8 +20397,8 @@ export type GetTriplesWithAggregatesQuery = {
                         url?: string | null
                       } | null
                     } | null
-                  }
-                  predicate: {
+                  } | null
+                  predicate?: {
                     __typename?: 'atoms'
                     data?: string | null
                     term_id: string
@@ -19964,14 +20406,14 @@ export type GetTriplesWithAggregatesQuery = {
                     image?: string | null
                     emoji?: string | null
                     type: any
-                    creator: {
+                    creator?: {
                       __typename?: 'accounts'
                       label: string
                       image?: string | null
                       id: string
                       atom_id?: string | null
                       type: any
-                    }
+                    } | null
                     value?: {
                       __typename?: 'atom_values'
                       person?: {
@@ -19996,8 +20438,8 @@ export type GetTriplesWithAggregatesQuery = {
                         url?: string | null
                       } | null
                     } | null
-                  }
-                  object: {
+                  } | null
+                  object?: {
                     __typename?: 'atoms'
                     data?: string | null
                     term_id: string
@@ -20005,14 +20447,14 @@ export type GetTriplesWithAggregatesQuery = {
                     image?: string | null
                     emoji?: string | null
                     type: any
-                    creator: {
+                    creator?: {
                       __typename?: 'accounts'
                       label: string
                       image?: string | null
                       id: string
                       atom_id?: string | null
                       type: any
-                    }
+                    } | null
                     value?: {
                       __typename?: 'atom_values'
                       person?: {
@@ -20037,9 +20479,9 @@ export type GetTriplesWithAggregatesQuery = {
                         url?: string | null
                       } | null
                     } | null
-                  }
+                  } | null
                 } | null
-              }
+              } | null
             } | null
           }>
         }>
@@ -20079,7 +20521,7 @@ export type GetTriplesWithAggregatesQuery = {
               term_id: string
               total_shares: any
               current_share_price: any
-              term: {
+              term?: {
                 __typename?: 'terms'
                 atom?: {
                   __typename?: 'atoms'
@@ -20126,7 +20568,7 @@ export type GetTriplesWithAggregatesQuery = {
                       }
                     }>
                   } | null
-                  subject: {
+                  subject?: {
                     __typename?: 'atoms'
                     data?: string | null
                     term_id: string
@@ -20134,14 +20576,14 @@ export type GetTriplesWithAggregatesQuery = {
                     image?: string | null
                     emoji?: string | null
                     type: any
-                    creator: {
+                    creator?: {
                       __typename?: 'accounts'
                       label: string
                       image?: string | null
                       id: string
                       atom_id?: string | null
                       type: any
-                    }
+                    } | null
                     value?: {
                       __typename?: 'atom_values'
                       person?: {
@@ -20166,8 +20608,8 @@ export type GetTriplesWithAggregatesQuery = {
                         url?: string | null
                       } | null
                     } | null
-                  }
-                  predicate: {
+                  } | null
+                  predicate?: {
                     __typename?: 'atoms'
                     data?: string | null
                     term_id: string
@@ -20175,14 +20617,14 @@ export type GetTriplesWithAggregatesQuery = {
                     image?: string | null
                     emoji?: string | null
                     type: any
-                    creator: {
+                    creator?: {
                       __typename?: 'accounts'
                       label: string
                       image?: string | null
                       id: string
                       atom_id?: string | null
                       type: any
-                    }
+                    } | null
                     value?: {
                       __typename?: 'atom_values'
                       person?: {
@@ -20207,8 +20649,8 @@ export type GetTriplesWithAggregatesQuery = {
                         url?: string | null
                       } | null
                     } | null
-                  }
-                  object: {
+                  } | null
+                  object?: {
                     __typename?: 'atoms'
                     data?: string | null
                     term_id: string
@@ -20216,14 +20658,14 @@ export type GetTriplesWithAggregatesQuery = {
                     image?: string | null
                     emoji?: string | null
                     type: any
-                    creator: {
+                    creator?: {
                       __typename?: 'accounts'
                       label: string
                       image?: string | null
                       id: string
                       atom_id?: string | null
                       type: any
-                    }
+                    } | null
                     value?: {
                       __typename?: 'atom_values'
                       person?: {
@@ -20248,9 +20690,9 @@ export type GetTriplesWithAggregatesQuery = {
                         url?: string | null
                       } | null
                     } | null
-                  }
+                  } | null
                 } | null
-              }
+              } | null
             } | null
           }>
         }>
@@ -20296,7 +20738,7 @@ export type GetTripleQuery = {
       atom_id?: string | null
       type: any
     } | null
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -20304,14 +20746,14 @@ export type GetTripleQuery = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -20336,8 +20778,8 @@ export type GetTripleQuery = {
           url?: string | null
         } | null
       } | null
-    }
-    predicate: {
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -20345,14 +20787,14 @@ export type GetTripleQuery = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -20377,8 +20819,8 @@ export type GetTripleQuery = {
           url?: string | null
         } | null
       } | null
-    }
-    object: {
+    } | null
+    object?: {
       __typename?: 'atoms'
       data?: string | null
       term_id: string
@@ -20386,14 +20828,14 @@ export type GetTripleQuery = {
       label?: string | null
       emoji?: string | null
       type: any
-      creator: {
+      creator?: {
         __typename?: 'accounts'
         label: string
         image?: string | null
         id: string
         atom_id?: string | null
         type: any
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -20418,7 +20860,7 @@ export type GetTripleQuery = {
           url?: string | null
         } | null
       } | null
-    }
+    } | null
     term?: {
       __typename?: 'terms'
       vaults: Array<{
@@ -20454,7 +20896,7 @@ export type GetTripleQuery = {
             term_id: string
             total_shares: any
             current_share_price: any
-            term: {
+            term?: {
               __typename?: 'terms'
               atom?: {
                 __typename?: 'atoms'
@@ -20501,7 +20943,7 @@ export type GetTripleQuery = {
                     }
                   }>
                 } | null
-                subject: {
+                subject?: {
                   __typename?: 'atoms'
                   data?: string | null
                   term_id: string
@@ -20509,14 +20951,14 @@ export type GetTripleQuery = {
                   image?: string | null
                   emoji?: string | null
                   type: any
-                  creator: {
+                  creator?: {
                     __typename?: 'accounts'
                     label: string
                     image?: string | null
                     id: string
                     atom_id?: string | null
                     type: any
-                  }
+                  } | null
                   value?: {
                     __typename?: 'atom_values'
                     person?: {
@@ -20541,8 +20983,8 @@ export type GetTripleQuery = {
                       url?: string | null
                     } | null
                   } | null
-                }
-                predicate: {
+                } | null
+                predicate?: {
                   __typename?: 'atoms'
                   data?: string | null
                   term_id: string
@@ -20550,14 +20992,14 @@ export type GetTripleQuery = {
                   image?: string | null
                   emoji?: string | null
                   type: any
-                  creator: {
+                  creator?: {
                     __typename?: 'accounts'
                     label: string
                     image?: string | null
                     id: string
                     atom_id?: string | null
                     type: any
-                  }
+                  } | null
                   value?: {
                     __typename?: 'atom_values'
                     person?: {
@@ -20582,8 +21024,8 @@ export type GetTripleQuery = {
                       url?: string | null
                     } | null
                   } | null
-                }
-                object: {
+                } | null
+                object?: {
                   __typename?: 'atoms'
                   data?: string | null
                   term_id: string
@@ -20591,14 +21033,14 @@ export type GetTripleQuery = {
                   image?: string | null
                   emoji?: string | null
                   type: any
-                  creator: {
+                  creator?: {
                     __typename?: 'accounts'
                     label: string
                     image?: string | null
                     id: string
                     atom_id?: string | null
                     type: any
-                  }
+                  } | null
                   value?: {
                     __typename?: 'atom_values'
                     person?: {
@@ -20623,9 +21065,9 @@ export type GetTripleQuery = {
                       url?: string | null
                     } | null
                   } | null
-                }
+                } | null
               } | null
-            }
+            } | null
           } | null
         }>
       }>
@@ -20665,7 +21107,7 @@ export type GetTripleQuery = {
             term_id: string
             total_shares: any
             current_share_price: any
-            term: {
+            term?: {
               __typename?: 'terms'
               atom?: {
                 __typename?: 'atoms'
@@ -20712,7 +21154,7 @@ export type GetTripleQuery = {
                     }
                   }>
                 } | null
-                subject: {
+                subject?: {
                   __typename?: 'atoms'
                   data?: string | null
                   term_id: string
@@ -20720,14 +21162,14 @@ export type GetTripleQuery = {
                   image?: string | null
                   emoji?: string | null
                   type: any
-                  creator: {
+                  creator?: {
                     __typename?: 'accounts'
                     label: string
                     image?: string | null
                     id: string
                     atom_id?: string | null
                     type: any
-                  }
+                  } | null
                   value?: {
                     __typename?: 'atom_values'
                     person?: {
@@ -20752,8 +21194,8 @@ export type GetTripleQuery = {
                       url?: string | null
                     } | null
                   } | null
-                }
-                predicate: {
+                } | null
+                predicate?: {
                   __typename?: 'atoms'
                   data?: string | null
                   term_id: string
@@ -20761,14 +21203,14 @@ export type GetTripleQuery = {
                   image?: string | null
                   emoji?: string | null
                   type: any
-                  creator: {
+                  creator?: {
                     __typename?: 'accounts'
                     label: string
                     image?: string | null
                     id: string
                     atom_id?: string | null
                     type: any
-                  }
+                  } | null
                   value?: {
                     __typename?: 'atom_values'
                     person?: {
@@ -20793,8 +21235,8 @@ export type GetTripleQuery = {
                       url?: string | null
                     } | null
                   } | null
-                }
-                object: {
+                } | null
+                object?: {
                   __typename?: 'atoms'
                   data?: string | null
                   term_id: string
@@ -20802,14 +21244,14 @@ export type GetTripleQuery = {
                   image?: string | null
                   emoji?: string | null
                   type: any
-                  creator: {
+                  creator?: {
                     __typename?: 'accounts'
                     label: string
                     image?: string | null
                     id: string
                     atom_id?: string | null
                     type: any
-                  }
+                  } | null
                   value?: {
                     __typename?: 'atom_values'
                     person?: {
@@ -20834,9 +21276,9 @@ export type GetTripleQuery = {
                       url?: string | null
                     } | null
                   } | null
-                }
+                } | null
               } | null
-            }
+            } | null
           } | null
         }>
       }>
@@ -20880,24 +21322,24 @@ export type GetTriplesWithPositionsQuery = {
     __typename?: 'triples'
     term_id: string
     counter_term_id: string
-    subject: {
+    subject?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
       image?: string | null
-    }
-    predicate: {
+    } | null
+    predicate?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
       image?: string | null
-    }
-    object: {
+    } | null
+    object?: {
       __typename?: 'atoms'
       term_id: string
       label?: string | null
       image?: string | null
-    }
+    } | null
     term?: {
       __typename?: 'terms'
       positions_aggregate: {
@@ -20968,27 +21410,27 @@ export type GetTriplesByAtomQuery = {
       __typename?: 'triples'
       term_id: string
       counter_term_id: string
-      subject: {
+      subject?: {
         __typename?: 'atoms'
         term_id: string
         label?: string | null
         image?: string | null
         type: any
-      }
-      predicate: {
+      } | null
+      predicate?: {
         __typename?: 'atoms'
         term_id: string
         label?: string | null
         image?: string | null
         type: any
-      }
-      object: {
+      } | null
+      object?: {
         __typename?: 'atoms'
         term_id: string
         label?: string | null
         image?: string | null
         type: any
-      }
+      } | null
       term?: {
         __typename?: 'terms'
         id: string
@@ -21069,27 +21511,27 @@ export type GetTriplesByUriQuery = {
           }
           vaults: Array<{ __typename?: 'vaults'; curve_id: any }>
         } | null
-        subject: {
+        subject?: {
           __typename?: 'atoms'
           label?: string | null
           image?: string | null
           type: any
           term_id: string
-        }
-        predicate: {
+        } | null
+        predicate?: {
           __typename?: 'atoms'
           label?: string | null
           image?: string | null
           type: any
           term_id: string
-        }
-        object: {
+        } | null
+        object?: {
           __typename?: 'atoms'
           label?: string | null
           image?: string | null
           type: any
           term_id: string
-        }
+        } | null
         positions: Array<{ __typename?: 'positions'; shares: any }>
         positions_aggregate: {
           __typename?: 'positions_aggregate'
@@ -21146,27 +21588,27 @@ export type GetTriplesByUriQuery = {
           }
           vaults: Array<{ __typename?: 'vaults'; curve_id: any }>
         } | null
-        predicate: {
+        predicate?: {
           __typename?: 'atoms'
           label?: string | null
           image?: string | null
           type: any
           term_id: string
-        }
-        subject: {
+        } | null
+        subject?: {
           __typename?: 'atoms'
           label?: string | null
           image?: string | null
           type: any
           term_id: string
-        }
-        object: {
+        } | null
+        object?: {
           __typename?: 'atoms'
           label?: string | null
           image?: string | null
           type: any
           term_id: string
-        }
+        } | null
         positions_aggregate: {
           __typename?: 'positions_aggregate'
           aggregate?: {
@@ -21226,7 +21668,7 @@ export type GetVaultsQuery = {
       term_id: string
       current_share_price: any
       total_shares: any
-      term: {
+      term?: {
         __typename?: 'terms'
         atom?: {
           __typename?: 'atoms'
@@ -21236,23 +21678,23 @@ export type GetVaultsQuery = {
         triple?: {
           __typename?: 'triples'
           term_id: string
-          subject: {
+          subject?: {
             __typename?: 'atoms'
             term_id: string
             label?: string | null
-          }
-          predicate: {
+          } | null
+          predicate?: {
             __typename?: 'atoms'
             term_id: string
             label?: string | null
-          }
-          object: {
+          } | null
+          object?: {
             __typename?: 'atoms'
             term_id: string
             label?: string | null
-          }
+          } | null
         } | null
-      }
+      } | null
       positions_aggregate: {
         __typename?: 'positions_aggregate'
         nodes: Array<{
@@ -21282,7 +21724,7 @@ export type GetVaultQuery = {
     curve_id: any
     current_share_price: any
     total_shares: any
-    term: {
+    term?: {
       __typename?: 'terms'
       atom?: {
         __typename?: 'atoms'
@@ -21292,19 +21734,23 @@ export type GetVaultQuery = {
       triple?: {
         __typename?: 'triples'
         term_id: string
-        subject: {
+        subject?: {
           __typename?: 'atoms'
           term_id: string
           label?: string | null
-        }
-        predicate: {
+        } | null
+        predicate?: {
           __typename?: 'atoms'
           term_id: string
           label?: string | null
-        }
-        object: { __typename?: 'atoms'; term_id: string; label?: string | null }
+        } | null
+        object?: {
+          __typename?: 'atoms'
+          term_id: string
+          label?: string | null
+        } | null
       } | null
-    }
+    } | null
   } | null
 }
 
@@ -21334,7 +21780,7 @@ export type EventsSubscription = {
       emoji?: string | null
       type: any
       wallet_id: string
-      term: {
+      term?: {
         __typename?: 'terms'
         id: string
         total_market_cap?: any | null
@@ -21350,13 +21796,13 @@ export type EventsSubscription = {
             image?: string | null
           } | null
         }>
-      }
-      creator: {
+      } | null
+      creator?: {
         __typename?: 'accounts'
         id: string
         label: string
         image?: string | null
-      }
+      } | null
       value?: {
         __typename?: 'atom_values'
         person?: {
@@ -21405,7 +21851,7 @@ export type EventsSubscription = {
           curve_id: any
           current_share_price: any
           total_shares: any
-          term: {
+          term?: {
             __typename?: 'terms'
             atom?: {
               __typename?: 'atoms'
@@ -21415,23 +21861,23 @@ export type EventsSubscription = {
             triple?: {
               __typename?: 'triples'
               term_id: string
-              subject: {
+              subject?: {
                 __typename?: 'atoms'
                 term_id: string
                 label?: string | null
-              }
-              predicate: {
+              } | null
+              predicate?: {
                 __typename?: 'atoms'
                 term_id: string
                 label?: string | null
-              }
-              object: {
+              } | null
+              object?: {
                 __typename?: 'atoms'
                 term_id: string
                 label?: string | null
-              }
+              } | null
             } | null
-          }
+          } | null
           positions: Array<{
             __typename?: 'positions'
             shares: any
@@ -21464,7 +21910,7 @@ export type EventsSubscription = {
           curve_id: any
           current_share_price: any
           total_shares: any
-          term: {
+          term?: {
             __typename?: 'terms'
             atom?: {
               __typename?: 'atoms'
@@ -21474,23 +21920,23 @@ export type EventsSubscription = {
             triple?: {
               __typename?: 'triples'
               term_id: string
-              subject: {
+              subject?: {
                 __typename?: 'atoms'
                 term_id: string
                 label?: string | null
-              }
-              predicate: {
+              } | null
+              predicate?: {
                 __typename?: 'atoms'
                 term_id: string
                 label?: string | null
-              }
-              object: {
+              } | null
+              object?: {
                 __typename?: 'atoms'
                 term_id: string
                 label?: string | null
-              }
+              } | null
             } | null
-          }
+          } | null
           positions: Array<{
             __typename?: 'positions'
             shares: any
@@ -21514,7 +21960,7 @@ export type EventsSubscription = {
         label: string
         id: string
       } | null
-      subject: {
+      subject?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -21522,8 +21968,8 @@ export type EventsSubscription = {
         label?: string | null
         emoji?: string | null
         type: any
-      }
-      predicate: {
+      } | null
+      predicate?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -21531,8 +21977,8 @@ export type EventsSubscription = {
         label?: string | null
         emoji?: string | null
         type: any
-      }
-      object: {
+      } | null
+      object?: {
         __typename?: 'atoms'
         data?: string | null
         term_id: string
@@ -21540,13 +21986,13 @@ export type EventsSubscription = {
         label?: string | null
         emoji?: string | null
         type: any
-      }
+      } | null
     } | null
     deposit?: {
       __typename?: 'deposits'
       term_id: string
       curve_id: any
-      receiver: { __typename?: 'accounts'; id: string }
+      receiver?: { __typename?: 'accounts'; id: string } | null
       sender?: { __typename?: 'accounts'; id: string } | null
     } | null
     redemption?: {
