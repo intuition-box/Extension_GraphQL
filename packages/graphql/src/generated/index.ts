@@ -57,6 +57,59 @@ export type Boolean_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['Boolean']['input']>>
 }
 
+export type CachedImage = {
+  __typename?: 'CachedImage'
+  created_at: Scalars['timestamptz']['output']
+  model?: Maybe<Scalars['String']['output']>
+  original_url: Scalars['String']['output']
+  safe: Scalars['Boolean']['output']
+  score?: Maybe<Scalars['jsonb']['output']>
+  url: Scalars['String']['output']
+}
+
+export type ChartDataOutput = {
+  __typename?: 'ChartDataOutput'
+  count: Scalars['Int']['output']
+  curve_id?: Maybe<Scalars['String']['output']>
+  data: Array<ChartDataPoint>
+  graph_type: Scalars['String']['output']
+  interval: Scalars['String']['output']
+  term_id: Scalars['String']['output']
+}
+
+export type ChartDataPoint = {
+  __typename?: 'ChartDataPoint'
+  timestamp: Scalars['String']['output']
+  value: Scalars['String']['output']
+}
+
+export type ChartSvgOutput = {
+  __typename?: 'ChartSvgOutput'
+  svg: Scalars['String']['output']
+}
+
+export type GetChartJsonInput = {
+  curve_id: Scalars['String']['input']
+  end_time: Scalars['String']['input']
+  graph_type?: InputMaybe<Scalars['String']['input']>
+  interval: Scalars['String']['input']
+  start_time: Scalars['String']['input']
+  term_id: Scalars['String']['input']
+}
+
+export type GetChartSvgInput = {
+  background_color?: InputMaybe<Scalars['String']['input']>
+  curve_id: Scalars['String']['input']
+  end_time: Scalars['String']['input']
+  graph_type?: InputMaybe<Scalars['String']['input']>
+  height?: InputMaybe<Scalars['Int']['input']>
+  interval: Scalars['String']['input']
+  line_color?: InputMaybe<Scalars['String']['input']>
+  start_time: Scalars['String']['input']
+  term_id: Scalars['String']['input']
+  width?: InputMaybe<Scalars['Int']['input']>
+}
+
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type Int_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['Int']['input']>
@@ -130,6 +183,28 @@ export type String_Comparison_Exp = {
   _regex?: InputMaybe<Scalars['String']['input']>
   /** does the column match the given SQL regular expression */
   _similar?: InputMaybe<Scalars['String']['input']>
+}
+
+export type UploadImageFromUrlInput = {
+  url: Scalars['String']['input']
+}
+
+export type UploadImageFromUrlOutput = {
+  __typename?: 'UploadImageFromUrlOutput'
+  images: Array<CachedImage>
+}
+
+export type UploadImageInput = {
+  contentType: Scalars['String']['input']
+  data: Scalars['String']['input']
+  filename: Scalars['String']['input']
+}
+
+export type UploadJsonToIpfsOutput = {
+  __typename?: 'UploadJsonToIpfsOutput'
+  hash: Scalars['String']['output']
+  name: Scalars['String']['output']
+  size: Scalars['String']['output']
 }
 
 /** Boolean expression to compare columns of type "account_type". All fields are combined with logical 'AND'. */
@@ -2868,6 +2943,12 @@ export type Mutation_Root = {
   pinPerson?: Maybe<PinOutput>
   /** Uploads and pins Thing to IPFS */
   pinThing?: Maybe<PinOutput>
+  /** Uploads and classifies an image file using image-guard. Accepts base64-encoded image data. Note: The original /upload endpoint requires multipart/form-data which Hasura actions cannot construct directly. This mutation uses upload_image_from_url with a data URL workaround. For direct file uploads, use the image-guard API directly or create a wrapper endpoint. */
+  uploadImage?: Maybe<UploadImageFromUrlOutput>
+  /** Uploads and classifies an image from a URL using image-guard */
+  uploadImageFromUrl?: Maybe<UploadImageFromUrlOutput>
+  /** Uploads JSON to IPFS using image-guard */
+  uploadJsonToIpfs?: Maybe<UploadJsonToIpfsOutput>
 }
 
 /** mutation root */
@@ -2883,6 +2964,21 @@ export type Mutation_RootPinPersonArgs = {
 /** mutation root */
 export type Mutation_RootPinThingArgs = {
   thing: PinThingInput
+}
+
+/** mutation root */
+export type Mutation_RootUploadImageArgs = {
+  image: UploadImageInput
+}
+
+/** mutation root */
+export type Mutation_RootUploadImageFromUrlArgs = {
+  image: UploadImageFromUrlInput
+}
+
+/** mutation root */
+export type Mutation_RootUploadJsonToIpfsArgs = {
+  json: Scalars['jsonb']['input']
 }
 
 /** Boolean expression to compare columns of type "numeric". All fields are combined with logical 'AND'. */
@@ -3961,6 +4057,10 @@ export type Query_Root = {
   following: Array<Accounts>
   /** execute function "following" and query aggregates on result of table type "account" */
   following_aggregate: Accounts_Aggregate
+  /** Fetches chart data (JSON) for a term/curve combination */
+  getChartJson?: Maybe<ChartDataOutput>
+  /** Fetches chart SVG for a term/curve combination */
+  getChartSvg?: Maybe<ChartSvgOutput>
   /** fetch data from the table: "json_object" using primary key columns */
   json_object?: Maybe<Json_Objects>
   /** fetch data from the table: "json_object" */
@@ -4327,6 +4427,14 @@ export type Query_RootFollowing_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>
   order_by?: InputMaybe<Array<Accounts_Order_By>>
   where?: InputMaybe<Accounts_Bool_Exp>
+}
+
+export type Query_RootGetChartJsonArgs = {
+  input: GetChartJsonInput
+}
+
+export type Query_RootGetChartSvgArgs = {
+  input: GetChartSvgInput
 }
 
 export type Query_RootJson_ObjectArgs = {
@@ -21339,6 +21447,7 @@ export type GetTriplesWithPositionsQuery = {
       term_id: string
       label?: string | null
       image?: string | null
+      accounts: Array<{ __typename?: 'accounts'; id: string }>
     } | null
     term?: {
       __typename?: 'terms'
@@ -61036,6 +61145,19 @@ export const GetTriplesWithPositionsDocument = {
                       },
                       { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'image' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'accounts' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                          ],
+                        },
+                      },
                     ],
                   },
                 },
@@ -99937,6 +100059,19 @@ export const GetTriplesWithPositions = {
                       },
                       { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'image' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'accounts' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                          ],
+                        },
+                      },
                     ],
                   },
                 },

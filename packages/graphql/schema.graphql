@@ -33,6 +33,55 @@ input Boolean_comparison_exp {
   _nin: [Boolean!]
 }
 
+type CachedImage {
+  created_at: timestamptz!
+  model: String
+  original_url: String!
+  safe: Boolean!
+  score: jsonb
+  url: String!
+}
+
+type ChartDataOutput {
+  count: Int!
+  curve_id: String
+  data: [ChartDataPoint!]!
+  graph_type: String!
+  interval: String!
+  term_id: String!
+}
+
+type ChartDataPoint {
+  timestamp: String!
+  value: String!
+}
+
+type ChartSvgOutput {
+  svg: String!
+}
+
+input GetChartJsonInput {
+  curve_id: String!
+  end_time: String!
+  graph_type: String
+  interval: String!
+  start_time: String!
+  term_id: String!
+}
+
+input GetChartSvgInput {
+  background_color: String
+  curve_id: String!
+  end_time: String!
+  graph_type: String
+  height: Int
+  interval: String!
+  line_color: String
+  start_time: String!
+  term_id: String!
+  width: Int
+}
+
 """
 Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
 """
@@ -129,6 +178,26 @@ input String_comparison_exp {
   does the column match the given SQL regular expression
   """
   _similar: String
+}
+
+input UploadImageFromUrlInput {
+  url: String!
+}
+
+type UploadImageFromUrlOutput {
+  images: [CachedImage!]!
+}
+
+input UploadImageInput {
+  contentType: String!
+  data: String!
+  filename: String!
+}
+
+type UploadJsonToIpfsOutput {
+  hash: String!
+  name: String!
+  size: String!
 }
 
 scalar _text
@@ -3909,6 +3978,18 @@ type mutation_root {
   Uploads and pins Thing to IPFS
   """
   pinThing(thing: PinThingInput!): PinOutput
+  """
+  Uploads and classifies an image file using image-guard. Accepts base64-encoded image data. Note: The original /upload endpoint requires multipart/form-data which Hasura actions cannot construct directly. This mutation uses upload_image_from_url with a data URL workaround. For direct file uploads, use the image-guard API directly or create a wrapper endpoint.
+  """
+  uploadImage(image: UploadImageInput!): UploadImageFromUrlOutput
+  """
+  Uploads and classifies an image from a URL using image-guard
+  """
+  uploadImageFromUrl(image: UploadImageFromUrlInput!): UploadImageFromUrlOutput
+  """
+  Uploads JSON to IPFS using image-guard
+  """
+  uploadJsonToIpfs(json: jsonb!): UploadJsonToIpfsOutput
 }
 
 scalar numeric
@@ -5759,6 +5840,14 @@ type query_root {
     """
     where: accounts_bool_exp
   ): accounts_aggregate!
+  """
+  Fetches chart data (JSON) for a term/curve combination
+  """
+  getChartJson(input: GetChartJsonInput!): ChartDataOutput
+  """
+  Fetches chart SVG for a term/curve combination
+  """
+  getChartSvg(input: GetChartSvgInput!): ChartSvgOutput
   """
   fetch data from the table: "json_object" using primary key columns
   """

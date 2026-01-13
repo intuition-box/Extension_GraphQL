@@ -162,6 +162,9 @@ query GetTriplesWithPositions(
       term_id
       label
       image
+      accounts {
+        id
+      }
     }
     term {
       positions_aggregate {
